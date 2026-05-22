@@ -22,7 +22,10 @@ function ProductsPage() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-deep">Cadastro de produtos</h1>
-          <p className="text-sm text-slate">Adicione medicamentos à rede. O risco é calculado automaticamente.</p>
+          <p className="text-sm text-slate">
+            Cadastre lotes na rede B2B2C. O risco é calculado automaticamente antes da
+            redistribuição aos parceiros e ao consumidor final.
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="rounded-full bg-card"><ScanBarcode className="mr-2 h-4 w-4" /> Código de barras</Button>
@@ -84,7 +87,7 @@ function ProductsPage() {
                   {level === "danger" ? "Redistribuição urgente" : level === "warn" ? "Atenção" : "Baixo risco"}
                 </p>
                 <p className="mt-1 text-sm text-slate">
-                  {level === "danger" ? "Recomendamos publicar imediatamente no marketplace." : level === "warn" ? "Monitore — pode ser publicado em breve." : "Estoque saudável."}
+                  {level === "danger" ? "Recomendamos publicar imediatamente na rede B2B2C." : level === "warn" ? "Monitore — pode ser publicado em breve." : "Estoque saudável."}
                 </p>
               </>
             ) : (

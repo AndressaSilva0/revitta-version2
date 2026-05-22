@@ -9,6 +9,8 @@ import {
   Hospital,
   Truck,
   FlaskConical,
+  User,
+  Heart,
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
@@ -23,18 +25,44 @@ export const Route = createFileRoute("/signup")({
   component: SignupPage,
 });
 
-const types = [
+const partnerTypes = [
   { id: "farmacia", label: "Farmácia", desc: "Drogarias e redes", icon: Store },
   { id: "clinica", label: "Clínica / Hospital", desc: "Unidades de saúde", icon: Hospital },
   { id: "distribuidora", label: "Distribuidora", desc: "Logística farma", icon: Truck },
   { id: "laboratorio", label: "Laboratório", desc: "Fabricantes", icon: FlaskConical },
 ];
 
-const perks = [
-  "Marketplace privado da rede",
+const consumerTypes = [
+  {
+    id: "consumidor",
+    label: "Consumidor final",
+    desc: "Plano Saúde+ · R$ 14,90/mês",
+    icon: User,
+    plan: "Saúde+",
+  },
+  {
+    id: "cuidador",
+    label: "Cuidador / família",
+    desc: "Plano Plus · R$ 29,90/mês",
+    icon: Heart,
+    plan: "Plus",
+  },
+];
+
+const CONSUMER_IDS = new Set(consumerTypes.map((t) => t.id));
+
+const partnerPerks = [
+  "Plano Explorar gratuito para parceiros",
+  "Rede B2B2C entre estabelecimentos de saúde",
   "Rastreabilidade ANVISA completa",
-  "Insights preditivos de descarte",
-  "Relatório ESG de impacto",
+  "Relatório ESG de impacto social e ambiental",
+];
+
+const consumerPerks = [
+  "Alertas de medicamentos e validade na sua região",
+  "Descontos em lotes das farmácias parceiras",
+  "Lembretes de tratamento e histórico pessoal",
+  "Planos Saúde+ e Plus — lançamento no Ano 1",
 ];
 
 // Helper functions for masking
@@ -46,6 +74,15 @@ const formatCNPJ = (value: string) => {
     .replace(/\.(\d{3})(\d)/, ".$1/$2")
     .replace(/(\d{4})(\d)/, "$1-$2")
     .substring(0, 18);
+};
+
+const formatCPF = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  return digits
+    .replace(/^(\d{3})(\d)/, "$1.$2")
+    .replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3")
+    .replace(/\.(\d{3})(\d)/, ".$1-$2")
+    .substring(0, 14);
 };
 
 const formatPhone = (value: string) => {
@@ -73,9 +110,14 @@ function SignupPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [cnpj, setCnpj] = useState("");
+  const [cpf, setCpf] = useState("");
   const [org, setOrg] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const isConsumer = type != null && CONSUMER_IDS.has(type);
+  const consumerPlan = consumerTypes.find((t) => t.id === type)?.plan;
+  const perks = isConsumer ? consumerPerks : partnerPerks;
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(formatPhone(e.target.value));
@@ -83,6 +125,10 @@ function SignupPage() {
 
   const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCnpj(formatCNPJ(e.target.value));
+  };
+
+  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCpf(formatCPF(e.target.value));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -97,16 +143,27 @@ function SignupPage() {
       return;
     }
     if (!email.includes("@")) {
-      toast.error("Por favor, insira um e-mail corporativo válido.");
+      toast.error(
+        isConsumer
+          ? "Por favor, insira um e-mail válido."
+          : "Por favor, insira um e-mail corporativo válido.",
+      );
       return;
     }
-    if (cnpj.length < 18) {
-      toast.error("Por favor, insira um CNPJ completo.");
-      return;
-    }
-    if (!org.trim()) {
-      toast.error("Por favor, preencha o nome do estabelecimento.");
-      return;
+    if (isConsumer) {
+      if (cpf.length < 14) {
+        toast.error("Por favor, insira um CPF completo.");
+        return;
+      }
+    } else {
+      if (cnpj.length < 18) {
+        toast.error("Por favor, insira um CNPJ completo.");
+        return;
+      }
+      if (!org.trim()) {
+        toast.error("Por favor, preencha o nome do estabelecimento.");
+        return;
+      }
     }
     if (password.length < 8) {
       toast.error("A senha deve conter no mínimo 8 caracteres.");
@@ -117,8 +174,15 @@ function SignupPage() {
 
     setTimeout(() => {
       setIsLoading(false);
-      toast.success("Conta criada com sucesso! Bem-vindo à Revitta.");
-      nav({ to: "/dashboard" });
+      if (isConsumer) {
+        toast.success(
+          `Você entrou na lista de espera do plano ${consumerPlan}! Avisaremos quando o app B2C abrir.`,
+        );
+        nav({ to: "/mobile" });
+      } else {
+        toast.success("Conta criada com sucesso! Bem-vindo à Revitta.");
+        nav({ to: "/dashboard" });
+      }
     }, 1500);
   };
 
@@ -145,8 +209,8 @@ function SignupPage() {
             <Sparkles className="h-3.5 w-3.5 text-mint" /> Grátis para começar
           </span>
           <h2 className="mt-6 text-4xl font-extrabold leading-[1.2] tracking-tight">
-            Junte-se a <span className="text-mint">340+</span> estabelecimentos circulando valor,
-            não desperdício.
+            Junte-se a <span className="text-mint">340+</span> parceiros na rede B2B2C — valor para
+            o negócio e mais acesso para quem precisa de medicamento.
           </h2>
           <ul className="mt-8 space-y-4">
             {perks.map((p) => (
@@ -192,39 +256,34 @@ function SignupPage() {
           {step === 1 && (
             <>
               <h1 className="text-3xl font-bold tracking-tight text-deep md:text-4xl">
-                Qual o seu estabelecimento?
+                Como você vai usar a Revitta?
               </h1>
               <p className="mt-2 text-slate">
-                Personalizamos sua experiência conforme seu perfil na rede.
+                Parceiros B2B entram na rede de redistribuição. Consumidores finais acessam os
+                planos Saúde+ e Plus.
               </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {types.map((t) => {
-                  const active = type === t.id;
-                  return (
-                    <button
-                      key={t.id}
-                      onClick={() => setType(t.id)}
-                      className={`group flex items-center gap-4 rounded-2xl border-2 p-5 text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${
-                        active
-                          ? "border-primary bg-primary/5 shadow-lg shadow-primary/5"
-                          : "border-border bg-card hover:border-primary/45 hover:shadow-md"
-                      }`}
-                    >
-                      <span
-                        className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${active ? "bg-primary text-white" : "bg-mint/15 text-primary group-hover:scale-105"}`}
-                      >
-                        <t.icon className="h-6 w-6" />
-                      </span>
-                      <div>
-                        <p className="font-bold text-deep transition-colors group-hover:text-primary">
-                          {t.label}
-                        </p>
-                        <p className="text-xs text-slate mt-0.5">{t.desc}</p>
-                      </div>
-                    </button>
-                  );
-                })}
+
+              <p className="mt-8 text-xs font-bold uppercase tracking-widest text-primary">
+                Parceiro da rede (B2B)
+              </p>
+              <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                {partnerTypes.map((t) => (
+                  <ProfileCard key={t.id} item={t} active={type === t.id} onSelect={() => setType(t.id)} />
+                ))}
               </div>
+
+              <p className="mt-8 text-xs font-bold uppercase tracking-widest text-primary">
+                Consumidor final (B2C)
+              </p>
+              <div className="mt-3 grid gap-4 sm:grid-cols-2">
+                {consumerTypes.map((t) => (
+                  <ProfileCard key={t.id} item={t} active={type === t.id} onSelect={() => setType(t.id)} />
+                ))}
+              </div>
+              <p className="mt-4 rounded-xl border border-mint/30 bg-mint/10 px-4 py-3 text-xs text-slate leading-relaxed">
+                Planos B2C entram em operação no <strong className="text-deep">Ano 1</strong>. Ao
+                cadastrar, você garante lugar na lista de espera com prioridade de acesso.
+              </p>
               <Button
                 disabled={!type}
                 onClick={() => setStep(2)}
@@ -239,8 +298,15 @@ function SignupPage() {
             <>
               <h1 className="text-3xl font-bold tracking-tight text-deep md:text-4xl">Quase lá!</h1>
               <p className="mt-2 text-slate">
-                Crie sua conta para ativar a rede de redistribuição.
+                {isConsumer
+                  ? `Cadastro para o plano ${consumerPlan} — lista de espera do app consumidor.`
+                  : "Crie sua conta para ativar a rede B2B2C de redistribuição (plano Explorar)."}
               </p>
+              {isConsumer && (
+                <span className="mt-3 inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                  Plano {consumerPlan} · lançamento Ano 1
+                </span>
+              )}
 
               <form className="mt-8 space-y-4.5" onSubmit={handleSubmit}>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -263,32 +329,43 @@ function SignupPage() {
                   />
                 </div>
                 <Field
-                  label="E-mail corporativo"
+                  label={isConsumer ? "E-mail" : "E-mail corporativo"}
                   id="email"
                   type="email"
-                  placeholder="voce@farmacia.com.br"
+                  placeholder={isConsumer ? "voce@email.com" : "voce@farmacia.com.br"}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   disabled={isLoading}
                 />
-                <div className="grid gap-4 sm:grid-cols-2">
+                {isConsumer ? (
                   <Field
-                    label="CNPJ"
-                    id="cnpj"
-                    placeholder="00.000.000/0000-00"
-                    value={cnpj}
-                    onChange={handleCnpjChange}
+                    label="CPF"
+                    id="cpf"
+                    placeholder="000.000.000-00"
+                    value={cpf}
+                    onChange={handleCpfChange}
                     disabled={isLoading}
                   />
-                  <Field
-                    label="Estabelecimento"
-                    id="org"
-                    placeholder="Farmácia Central"
-                    value={org}
-                    onChange={(e) => setOrg(e.target.value)}
-                    disabled={isLoading}
-                  />
-                </div>
+                ) : (
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Field
+                      label="CNPJ"
+                      id="cnpj"
+                      placeholder="00.000.000/0000-00"
+                      value={cnpj}
+                      onChange={handleCnpjChange}
+                      disabled={isLoading}
+                    />
+                    <Field
+                      label="Estabelecimento"
+                      id="org"
+                      placeholder="Farmácia Central"
+                      value={org}
+                      onChange={(e) => setOrg(e.target.value)}
+                      disabled={isLoading}
+                    />
+                  </div>
+                )}
                 <Field
                   label="Senha"
                   id="password"
@@ -309,6 +386,8 @@ function SignupPage() {
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Criando conta...
                     </>
+                  ) : isConsumer ? (
+                    `Entrar na lista de espera · ${consumerPlan}`
                   ) : (
                     "Criar conta gratuita"
                   )}
@@ -359,6 +438,39 @@ function SignupPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+function ProfileCard({
+  item,
+  active,
+  onSelect,
+}: {
+  item: { id: string; label: string; desc: string; icon: any };
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const Icon = item.icon;
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`group flex items-center gap-4 rounded-2xl border-2 p-5 text-left transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] ${
+        active
+          ? "border-primary bg-primary/5 shadow-lg shadow-primary/5"
+          : "border-border bg-card hover:border-primary/45 hover:shadow-md"
+      }`}
+    >
+      <span
+        className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${active ? "bg-primary text-white" : "bg-mint/15 text-primary group-hover:scale-105"}`}
+      >
+        <Icon className="h-6 w-6" />
+      </span>
+      <div>
+        <p className="font-bold text-deep transition-colors group-hover:text-primary">{item.label}</p>
+        <p className="text-xs text-slate mt-0.5">{item.desc}</p>
+      </div>
+    </button>
   );
 }
 

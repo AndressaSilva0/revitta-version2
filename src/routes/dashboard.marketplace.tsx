@@ -29,8 +29,11 @@ function MarketplacePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-deep">Marketplace de redistribuição</h1>
-        <p className="text-sm text-slate">Conecte-se à rede e dê uma nova vida aos medicamentos da sua região.</p>
+        <h1 className="text-3xl font-bold text-deep">Rede B2B2C de redistribuição</h1>
+        <p className="text-sm text-slate">
+          Negocie lotes entre parceiros e escoe estoque que pode chegar ao consumidor final nas
+          farmácias da sua região.
+        </p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-border bg-card p-4">

@@ -22,6 +22,9 @@ import {
   Calculator,
   Package,
   HelpCircle as HelpIcon,
+  Users,
+  LineChart,
+  Zap,
 } from "lucide-react";
 import heroDoctor from "@/assets/hero-doctor.png";
 import aboutPharmacist from "@/assets/about-pharmacist.png";
@@ -49,6 +52,9 @@ function Landing() {
           <nav className="hidden items-center gap-8 text-sm font-medium text-slate md:flex">
             <a href="#produto" className="hover:text-primary transition-colors">
               Produto
+            </a>
+            <a href="#planos" className="hover:text-primary transition-colors">
+              Planos
             </a>
             <a href="#como" className="hover:text-primary transition-colors">
               Como funciona
@@ -101,6 +107,13 @@ function Landing() {
                 className="py-2 border-b border-border/40 hover:text-primary"
               >
                 Produto
+              </a>
+              <a
+                href="#planos"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Planos
               </a>
               <a
                 href="#como"
@@ -166,7 +179,7 @@ function Landing() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-12 lg:py-24">
           <div className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary animate-pulse">
-              <Sparkles className="h-3.5 w-3.5" /> B2B Healthtech • Líder em Economia Circular
+              <Sparkles className="h-3.5 w-3.5" /> B2B2C Healthtech • Líder em Economia Circular
             </span>
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-deep sm:text-5xl md:text-6xl lg:text-7xl">
               Uma nova vida
@@ -179,9 +192,9 @@ function Landing() {
               próximos da validade.
             </h1>
             <p className="mt-6 max-w-xl text-lg text-slate leading-relaxed">
-              Conectamos farmácias, clínicas, distribuidoras e laboratórios em uma rede robusta e
-              segura de redistribuição farmacêutica. Menos desperdício ecológico, mais rentabilidade
-              financeira.
+              Rede B2B2C de redistribuição farmacêutica: parceiros circulam estoque com segurança e
+              consumidores acessam benefícios e medicamentos com preço justo. Comece no plano
+              gratuito e evolua conforme o seu perfil.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link to="/signup">
@@ -189,18 +202,18 @@ function Landing() {
                   size="lg"
                   className="rounded-full bg-primary text-primary-foreground hover:bg-primary/95 shadow-lg shadow-primary/20 transition-all hover:scale-105"
                 >
-                  Começar agora grátis <ArrowRight className="ml-1.5 h-4 w-4" />
+                  Começar grátis <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
               </Link>
-              <Link to="/dashboard">
+              <a href="#planos">
                 <Button
                   size="lg"
                   variant="outline"
                   className="rounded-full border-deep/20 text-deep hover:bg-deep/5 transition-all hover:scale-105"
                 >
-                  Ver painel demonstrativo
+                  Ver planos
                 </Button>
-              </Link>
+              </a>
             </div>
 
             <div className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-6">
@@ -305,8 +318,8 @@ function Landing() {
               Lotes Recém-Anunciados
             </h2>
             <p className="mt-2 text-slate text-sm max-w-xl">
-              Medicamentos originais cadastrados por parceiros homologados, disponíveis para
-              redistribuição imediata com alta margem de economia.
+              Lotes publicados por parceiros da rede B2B2C — redistribua entre estabelecimentos e
+              escoe estoque que pode chegar ao consumidor final nas farmácias receptoras.
             </p>
           </div>
           <Link to="/signup" className="mt-4 md:mt-0">
@@ -458,9 +471,9 @@ function Landing() {
       {/* FEATURES */}
       <section id="produto" className="mx-auto max-w-7xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-widest text-primary">Plataforma B2B</p>
+          <p className="text-sm font-bold uppercase tracking-widest text-primary">Plataforma B2B2C</p>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl md:text-5xl">
-            Tudo que sua empresa precisa para circular valor, não perdas.
+            Da operação do parceiro à prateleira do consumidor — com rastreio e conformidade.
           </h2>
         </div>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -471,8 +484,8 @@ function Landing() {
           />
           <Feature
             icon={ShieldCheck}
-            title="Marketplace Seguro"
-            text="Redistribua de forma privada para estabelecimentos da sua rede, com reserva automática e 1-clique."
+            title="Rede B2B2C Segura"
+            text="Parceiros negociam lotes entre si na rede; o estoque redistribuído chega às farmácias que atendem o consumidor final."
           />
           <Feature
             icon={Truck}
@@ -484,6 +497,99 @@ function Landing() {
             title="Insights Preditivos"
             text="Previsão de vencimentos no estoque, perdas financeiras evitadas e relatórios ESG prontos para auditoria."
           />
+        </div>
+      </section>
+
+      {/* PLANOS */}
+      <section id="planos" className="border-y border-border/60 bg-surface">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-bold uppercase tracking-widest text-primary">Planos & preços</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl md:text-5xl">
+              Do exploratório gratuito ao SaaS para grandes redes
+            </h2>
+            <p className="mt-4 text-slate leading-relaxed">
+              Parceiros B2B entram sem mensalidade fixa. Consumidores e operações avançadas têm
+              planos pagos conforme a maturidade do produto.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <PricingPlan
+              highlight
+              badge="Disponível agora"
+              icon={Zap}
+              name="Explorar"
+              subtitle="Gratuito — conheça como funciona"
+              price="R$ 0"
+              priceDetail="/mês · sem fidelidade"
+              audience="Farmácias, clínicas, distribuidoras e laboratórios"
+              timeline="Disponível agora"
+              features={[
+                "Cadastro na rede B2B2C e painel demonstrativo",
+                "Simulador de ROI e publicação de lotes de teste",
+                "Comissão apenas em redistribuições concluídas",
+              ]}
+              ctaLabel="Começar grátis"
+              ctaTo="/signup"
+            />
+            <PricingPlan
+              badge="Ano 1"
+              icon={Users}
+              name="Assinatura B2C — Saúde+"
+              subtitle="Consumidor paga mensalidade por benefícios extras"
+              price="R$ 14,90"
+              priceDetail="/mês"
+              audience="Consumidor"
+              timeline="A partir do Ano 1"
+              features={[
+                "Alertas de medicamentos e validade na região",
+                "Descontos em lotes redistribuídos nas farmácias parceiras",
+                "Histórico de tratamentos e lembretes de reposição",
+              ]}
+              ctaLabel="Lista de espera"
+              ctaTo="/signup"
+            />
+            <PricingPlan
+              badge="Ano 1"
+              icon={Heart}
+              name="Assinatura B2C — Plus"
+              subtitle="Plano família para cuidadores e idosos com polifarmácia"
+              price="R$ 29,90"
+              priceDetail="/mês"
+              audience="Consumidor (cuidadores)"
+              timeline="A partir do Ano 1"
+              features={[
+                "Tudo do Saúde+ para até 4 dependentes",
+                "Gestão de polifarmácia e interações",
+                "Suporte prioritário para cuidadores",
+              ]}
+              ctaLabel="Lista de espera"
+              ctaTo="/signup"
+            />
+            <PricingPlan
+              badge="Ano 2"
+              icon={LineChart}
+              name="Inteligência de dados (SaaS)"
+              subtitle="Relatórios de perdas e previsão de vencimento por SKU e região"
+              price="R$ 199–499"
+              priceDetail="/mês por cliente"
+              audience="Distribuidoras, redes, labs"
+              timeline="A partir do Ano 2"
+              features={[
+                "Dashboard por SKU, região e canal",
+                "Previsão de vencimento e descarte com IA",
+                "API e exportação para ERP e BI",
+              ]}
+              ctaLabel="Falar com vendas"
+              ctaHref="#faq"
+            />
+          </div>
+
+          <p className="mt-10 text-center text-xs text-slate max-w-2xl mx-auto">
+            Valores de referência para o roadmap comercial. O plano Explorar não cobra mensalidade;
+            planos B2C e SaaS entram em operação nas fases indicadas.
+          </p>
         </div>
       </section>
 
@@ -510,12 +616,12 @@ function Landing() {
               {
                 n: "02",
                 t: "Publique",
-                d: "Os lotes próximos ao vencimento são anunciados no ecossistema privado ou público da rede.",
+                d: "Lotes próximos ao vencimento entram na rede B2B2C — visíveis para parceiros homologados da sua região.",
               },
               {
                 n: "03",
                 t: "Combine",
-                d: "Outras farmácias ou clínicas encontram os itens, efetuam a reserva e efetuam o matching instantâneo.",
+                d: "Farmácias e clínicas reservam entre si; o medicamento segue para quem pode colocá-lo na prateleira do consumidor.",
               },
               {
                 n: "04",
@@ -551,9 +657,9 @@ function Landing() {
               Pare de jogar dinheiro no lixo. Comece a recuperar hoje.
             </h2>
             <p className="mt-5 text-slate leading-relaxed">
-              O descarte incorreto de medicamentos gera passivos ambientais e prejuízos operacionais
-              severos. Ao redistribuir produtos no marketplace Revitta, você transforma o que seria
-              despesa de incineração em receita líquida recuperada.
+              O descarte incorreto gera passivos ambientais e prejuízos operacionais severos. Na rede
+              B2B2C Revitta, você recupera receita entre parceiros e evita que medicamentos úteis
+              deixem de chegar ao paciente nas farmácias da região.
             </p>
             <div className="mt-6 flex flex-col gap-4">
               <div className="flex items-center gap-3">
@@ -594,9 +700,9 @@ function Landing() {
                 Redução de até <span className="text-primary">70%</span> nas perdas de medicamentos.
               </h2>
               <p className="mt-5 max-w-lg text-slate leading-relaxed">
-                Cada lote circularizado representa menos medicamentos químicos contaminando o solo,
-                maior acesso da população a tratamentos de saúde e relatórios ESG auditáveis de
-                conformidade ambiental.
+                Cada lote circularizado reduz descarte, amplia o acesso do consumidor final a
+                tratamentos com preço mais justo nas farmácias parceiras e gera relatórios ESG
+                auditáveis para o seu negócio.
               </p>
               <ul className="mt-8 space-y-4">
                 {[
@@ -705,8 +811,12 @@ function Landing() {
               answer="Sim. A plataforma foi desenhada sob as regras da RDC 304 e RDC 340, que regulamentam a distribuição e armazenamento de medicamentos. Todos os processos de transporte, verificação de lote e registro de temperatura contam com registro auditável em nossa base de dados."
             />
             <FAQItem
+              question="O que significa a Revitta ser uma plataforma B2B2C?"
+              answer="Parceiros B2B — farmácias, clínicas, distribuidoras e laboratórios — usam a Revitta para cadastrar, negociar e rastrear redistribuições entre si. O efeito B2C é indireto: medicamentos que seriam descartados voltam ao estoque de farmácias que atendem o consumidor final, com maior disponibilidade e preços mais acessíveis na prateleira."
+            />
+            <FAQItem
               question="Qual é o custo para começar a usar a plataforma?"
-              answer="Você pode criar sua conta de forma totalmente gratuita e começar a cadastrar seus lotes sem mensalidade fixa. Cobramos uma comissão percentual justa apenas sobre os medicamentos que forem redistribuídos com sucesso dentro da rede."
+              answer="O plano Explorar é gratuito: cadastro, painel demonstrativo e simulador, sem mensalidade fixa — cobramos comissão apenas sobre redistribuições concluídas. Assinaturas B2C (Saúde+ e Plus) e o SaaS de Inteligência de dados entram nas fases Ano 1 e Ano 2, conforme a tabela de planos na página."
             />
             <FAQItem
               question="Como funciona a logística de coleta e entrega?"
@@ -739,8 +849,9 @@ function Landing() {
               Pronto para otimizar seu estoque e impulsionar suas margens?
             </h3>
             <p className="mt-4 text-white/70 max-w-xl text-base">
-              Junte-se a centenas de estabelecimentos ativamente engajados na saúde financeira e
-              ambiental. Teste gratuito imediato.
+              Junte-se a centenas de estabelecimentos na rede B2B2C Revitta — rentabilidade para o
+              parceiro, mais medicamentos disponíveis para quem compra na farmácia. Teste gratuito
+              imediato.
             </p>
             <div className="mt-8 flex flex-wrap gap-4 justify-center">
               <Link to="/signup">
@@ -829,6 +940,110 @@ function ProductRow({ name, days }: { name: string; days: number }) {
         {days}d
       </span>
     </div>
+  );
+}
+
+function PricingPlan({
+  icon: Icon,
+  name,
+  subtitle,
+  price,
+  priceDetail,
+  audience,
+  timeline,
+  features,
+  ctaLabel,
+  ctaTo,
+  ctaHref,
+  badge,
+  highlight,
+}: {
+  icon: any;
+  name: string;
+  subtitle: string;
+  price: string;
+  priceDetail: string;
+  audience: string;
+  timeline: string;
+  features: string[];
+  ctaLabel: string;
+  ctaTo?: string;
+  ctaHref?: string;
+  badge: string;
+  highlight?: boolean;
+}) {
+  const ctaClass = highlight
+    ? "rounded-full bg-primary text-primary-foreground hover:bg-primary/95 shadow-md shadow-primary/15"
+    : "rounded-full border border-border bg-surface text-deep hover:border-primary/40 hover:bg-primary/5";
+
+  return (
+    <article
+      className={`relative flex flex-col rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+        highlight
+          ? "border-primary bg-card ring-2 ring-primary/20"
+          : "border-border/60 bg-card"
+      }`}
+    >
+      {highlight && (
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-primary-foreground">
+          Recomendado para começar
+        </span>
+      )}
+      <span
+        className={`inline-flex w-fit rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
+          highlight ? "bg-mint/20 text-deep" : "bg-surface text-slate"
+        }`}
+      >
+        {badge}
+      </span>
+      <span
+        className={`mt-4 inline-flex h-11 w-11 items-center justify-center rounded-xl ${
+          highlight ? "bg-primary text-white" : "bg-mint/15 text-primary"
+        }`}
+      >
+        <Icon className="h-5 w-5" />
+      </span>
+      <h3 className="mt-4 text-lg font-bold text-deep leading-snug">{name}</h3>
+      <p className="mt-1 text-sm text-slate leading-relaxed">{subtitle}</p>
+      <div className="mt-5 flex items-baseline gap-1">
+        <span className="text-3xl font-black text-deep">{price}</span>
+        <span className="text-xs font-semibold text-slate">{priceDetail}</span>
+      </div>
+      <div className="mt-4 space-y-2 rounded-xl bg-surface/80 p-3 text-xs">
+        <p>
+          <span className="font-bold text-deep">Público: </span>
+          <span className="text-slate">{audience}</span>
+        </p>
+        <p>
+          <span className="font-bold text-deep">Disponibilidade: </span>
+          <span className="text-slate">{timeline}</span>
+        </p>
+      </div>
+      <ul className="mt-5 flex-1 space-y-2.5">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-sm text-slate">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      <div className="mt-6">
+        {ctaTo ? (
+          <Link to={ctaTo} className="block">
+            <Button className={`w-full font-bold ${ctaClass}`}>{ctaLabel}</Button>
+          </Link>
+        ) : (
+          <a href={ctaHref ?? "#planos"} className="block">
+            <Button
+              variant={highlight ? "default" : "outline"}
+              className={`w-full font-bold ${ctaClass}`}
+            >
+              {ctaLabel}
+            </Button>
+          </a>
+        )}
+      </div>
+    </article>
   );
 }
 

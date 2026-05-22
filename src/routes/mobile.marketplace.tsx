@@ -60,9 +60,9 @@ function MobileMarketplace() {
   return (
     <div className="pb-6">
       <header className="rounded-b-[2.5rem] bg-gradient-to-b from-deep via-deep to-[#093230] px-5 pb-6 pt-12 text-white shadow-lg shadow-deep/10">
-        <h1 className="text-2xl font-extrabold tracking-tight">Rede Revitta</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight">Rede B2B2C Revitta</h1>
         <p className="text-xs text-white/70 mt-1">
-          Medicamentos sobressalentes disponíveis próximos a você
+          Lotes entre parceiros — prontos para redistribuição até a prateleira do consumidor
         </p>
       </header>
 

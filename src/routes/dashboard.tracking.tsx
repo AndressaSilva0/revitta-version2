@@ -22,7 +22,10 @@ function TrackingPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-deep">Rastreamento logístico farmacêutico</h1>
-        <p className="text-sm text-slate">Cadeia de custódia auditável da origem ao destino.</p>
+        <p className="text-sm text-slate">
+          Cadeia de custódia B2B2C — do parceiro de origem até o estabelecimento que atende o
+          consumidor final.
+        </p>
       </div>
 
       <div className="grid gap-6 xl:grid-cols-5">

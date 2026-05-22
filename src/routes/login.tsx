@@ -124,7 +124,9 @@ function LoginPage() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-deep">Bem-vindo de volta</h1>
-          <p className="mt-2 text-sm text-slate">Acesse o centro de controle da sua rede.</p>
+          <p className="mt-2 text-sm text-slate">
+            Acesse o centro de controle da sua rede B2B2C.
+          </p>
 
           <form className="mt-8 space-y-4.5" onSubmit={handleSubmit}>
             <div>

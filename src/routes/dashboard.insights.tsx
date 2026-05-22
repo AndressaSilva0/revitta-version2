@@ -39,7 +39,10 @@ function InsightsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-deep">Insights & inteligência</h1>
-        <p className="text-sm text-slate">Análise preditiva e impacto da rede Revitta.</p>
+        <p className="text-sm text-slate">
+          Análise preditiva da rede B2B2C — operação entre parceiros e impacto no consumidor
+          final.
+        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

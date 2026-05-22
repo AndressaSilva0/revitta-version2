@@ -149,10 +149,10 @@ function MobileHome() {
               <ShoppingBag className="h-5 w-5" />
             </div>
             <p className="font-bold text-deep group-hover:text-primary transition-colors duration-200">
-              Explorar rede
+              Rede B2B2C
             </p>
             <p className="mt-1 text-[11px] leading-relaxed text-slate">
-              Veja medicamentos disponíveis por perto
+              Lotes entre parceiros para redistribuição regional
             </p>
           </Link>
         </div>

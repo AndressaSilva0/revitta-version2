@@ -13,7 +13,7 @@ export const Route = createFileRoute("/dashboard")({
 const nav = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutGrid, exact: true },
   { to: "/dashboard/products", label: "Cadastro de Produtos", icon: Package },
-  { to: "/dashboard/marketplace", label: "Marketplace", icon: ShoppingBag, badge: 24 },
+  { to: "/dashboard/marketplace", label: "Rede B2B2C", icon: ShoppingBag, badge: 24 },
   { to: "/dashboard/tracking", label: "Rastreamento", icon: Truck },
   { to: "/dashboard/insights", label: "Insights", icon: BarChart3 },
 ];

@@ -10,7 +10,7 @@ const tabs = [
   { to: "/mobile", label: "Início", icon: Home, exact: true },
   { to: "/mobile/products", label: "Produtos", icon: Package },
   { to: "/mobile/scanner", label: "Scanner", icon: ScanLine, primary: true },
-  { to: "/mobile/marketplace", label: "Rede", icon: ShoppingBag },
+  { to: "/mobile/marketplace", label: "Rede B2B2C", icon: ShoppingBag },
   { to: "/mobile/tracking", label: "Tracking", icon: Truck },
 ];
 

@@ -43,8 +43,9 @@ function DashboardHome() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Centro de controle farmacêutico</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Rede B2B2C · Centro de controle</p>
           <h1 className="mt-1 text-3xl font-bold text-deep">Visão geral da rede</h1>
+          <p className="mt-1 text-sm text-slate">Operação entre parceiros e impacto no consumidor final na região.</p>
         </div>
         <p className="text-sm text-slate">Atualizado agora · 22 mai 2026</p>
       </div>
