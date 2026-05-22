@@ -24,7 +24,7 @@ function DashboardLayout() {
     <div className="flex min-h-screen bg-surface">
       {/* Sidebar */}
       <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-card lg:flex">
-        <div className="p-6"><Logo /></div>
+        <div className="p-6"><Logo imgClassName="h-24" /></div>
         <nav className="flex-1 space-y-1 px-3">
           {nav.map(item => {
             const active = item.exact ? pathname === item.to : pathname.startsWith(item.to);
@@ -57,20 +57,22 @@ function DashboardLayout() {
       {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center gap-4 border-b border-border bg-card/80 px-6 backdrop-blur">
-          <div className="relative flex-1 max-w-md">
+          <div className="relative flex-1 max-w-md lg:ml-2">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate" />
             <Input placeholder="Buscar produto, lote, farmácia..." className="h-10 bg-surface pl-9" />
           </div>
-          <button className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface text-slate hover:text-deep">
-            <Bell className="h-4 w-4" />
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-risk-danger" />
-          </button>
-          <div className="flex items-center gap-3">
-            <div className="hidden text-right md:block">
-              <p className="text-sm font-semibold text-deep">Admin Revitta</p>
-              <p className="text-xs text-slate">admin@revitta.com</p>
+          <div className="ml-auto flex items-center gap-4 lg:mr-2">
+            <button className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface text-slate hover:text-deep">
+              <Bell className="h-4 w-4" />
+              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-risk-danger" />
+            </button>
+            <div className="flex items-center gap-3">
+              <div className="hidden text-right md:block">
+                <p className="text-sm font-semibold text-deep">Admin Revitta</p>
+                <p className="text-xs text-slate">admin@revitta.com</p>
+              </div>
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-brand text-sm font-bold text-white">AR</span>
             </div>
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-brand text-sm font-bold text-white">AR</span>
           </div>
         </header>
         <main className="flex-1 overflow-x-hidden p-6 lg:p-8"><Outlet /></main>

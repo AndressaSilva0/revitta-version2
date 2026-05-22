@@ -71,12 +71,12 @@
   --radius: 0.875rem;
 
   /* Brand */
-  --deep: oklch(0.32 0.045 175);          /* #0A3D3A */
-  --primary: oklch(0.58 0.12 167);        /* #119B7A */
+  --deep: oklch(0.32 0.045 175); /* #0A3D3A */
+  --primary: oklch(0.58 0.12 167); /* #119B7A */
   --primary-foreground: oklch(0.985 0 0);
-  --mint: oklch(0.80 0.11 158);           /* #6AC89B */
-  --surface: oklch(0.975 0.004 160);      /* #F5F7F6 */
-  --slate: oklch(0.48 0.025 255);         /* #4B5563 */
+  --mint: oklch(0.8 0.11 158); /* #6AC89B */
+  --surface: oklch(0.975 0.004 160); /* #F5F7F6 */
+  --slate: oklch(0.48 0.025 255); /* #4B5563 */
 
   --background: oklch(0.99 0.003 160);
   --foreground: oklch(0.18 0.025 175);
@@ -103,12 +103,12 @@
   --ring: oklch(0.58 0.12 167);
 
   /* Risk levels */
-  --risk-safe: oklch(0.65 0.15 155);      /* green */
-  --risk-warn: oklch(0.78 0.16 85);       /* amber */
-  --risk-danger: oklch(0.62 0.22 25);     /* red */
+  --risk-safe: oklch(0.65 0.15 155); /* green */
+  --risk-warn: oklch(0.78 0.16 85); /* amber */
+  --risk-danger: oklch(0.62 0.22 25); /* red */
 
   --chart-1: oklch(0.58 0.12 167);
-  --chart-2: oklch(0.80 0.11 158);
+  --chart-2: oklch(0.8 0.11 158);
   --chart-3: oklch(0.32 0.045 175);
   --chart-4: oklch(0.78 0.16 85);
   --chart-5: oklch(0.62 0.22 25);
@@ -143,8 +143,11 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -154,11 +157,65 @@
 
 /* Utility helpers */
 @layer utilities {
-  .bg-gradient-brand { background-image: linear-gradient(135deg, var(--deep), var(--primary)); }
-  .bg-gradient-mint  { background-image: linear-gradient(135deg, var(--primary), var(--mint)); }
-  .text-deep { color: var(--deep); }
-  .bg-deep { background-color: var(--deep); }
-  .bg-mint { background-color: var(--mint); }
-  .bg-surface { background-color: var(--surface); }
-  .ring-brand { box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent); }
+  .bg-gradient-brand {
+    background-image: linear-gradient(135deg, var(--deep), var(--primary));
+  }
+  .bg-gradient-mint {
+    background-image: linear-gradient(135deg, var(--primary), var(--mint));
+  }
+  .text-deep {
+    color: var(--deep);
+  }
+  .bg-deep {
+    background-color: var(--deep);
+  }
+  .bg-mint {
+    background-color: var(--mint);
+  }
+  .bg-surface {
+    background-color: var(--surface);
+  }
+  .ring-brand {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent);
+  }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s infinite;
+  }
+
+  .bg-glass {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .bg-glass-dark {
+    background-color: rgba(10, 61, 58, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(17, 155, 122, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(17, 155, 122, 0.15);
+  }
 }

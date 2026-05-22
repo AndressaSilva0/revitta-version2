@@ -1,10 +1,34 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import {
-  ArrowRight, ShieldCheck, Truck, Tag, Heart, Activity, Leaf,
-  TrendingDown, MapPin, BarChart3, CheckCircle2, Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  Truck,
+  Tag,
+  Heart,
+  Activity,
+  Leaf,
+  TrendingDown,
+  MapPin,
+  BarChart3,
+  CheckCircle2,
+  Sparkles,
+  Menu,
+  X,
+  ChevronDown,
+  HelpCircle,
+  Calculator,
+  Package,
+  HelpCircle as HelpIcon,
 } from "lucide-react";
+import heroDoctor from "@/assets/hero-doctor.png";
+import aboutPharmacist from "@/assets/about-pharmacist.png";
+import productVitamins from "@/assets/product-vitamins.png";
+import productAntibiotics from "@/assets/product-antibiotics.png";
+import productSyrup from "@/assets/product-syrup.png";
+import productCapsules from "@/assets/product-capsules.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [{ title: "Revitta — Uma nova vida para medicamentos" }] }),
@@ -12,25 +36,124 @@ export const Route = createFileRoute("/")({
 });
 
 function Landing() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-surface text-foreground">
+    <div className="min-h-screen bg-surface text-foreground font-sans selection:bg-primary/20 selection:text-deep">
       {/* NAV */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Logo />
+        <div className="mx-auto flex h-28 max-w-7xl items-center justify-between px-6">
+          <Logo imgClassName="h-24" />
+
+          {/* Desktop Nav */}
           <nav className="hidden items-center gap-8 text-sm font-medium text-slate md:flex">
-            <a href="#produto" className="hover:text-primary">Produto</a>
-            <a href="#como" className="hover:text-primary">Como funciona</a>
-            <a href="#impacto" className="hover:text-primary">Impacto</a>
-            <a href="#depoimentos" className="hover:text-primary">Clientes</a>
+            <a href="#produto" className="hover:text-primary transition-colors">
+              Produto
+            </a>
+            <a href="#como" className="hover:text-primary transition-colors">
+              Como funciona
+            </a>
+            <a href="#simulador" className="hover:text-primary transition-colors">
+              Simulador
+            </a>
+            <a href="#impacto" className="hover:text-primary transition-colors">
+              Impacto
+            </a>
+            <a href="#depoimentos" className="hover:text-primary transition-colors">
+              Clientes
+            </a>
+            <a href="#faq" className="hover:text-primary transition-colors">
+              FAQ
+            </a>
           </nav>
-          <div className="flex items-center gap-2">
-            <Link to="/login" className="hidden text-sm font-medium text-deep hover:text-primary sm:inline-block">Entrar</Link>
+
+          <div className="hidden items-center gap-4 md:flex">
+            <Link
+              to="/login"
+              className="text-sm font-medium text-deep hover:text-primary transition-colors"
+            >
+              Entrar
+            </Link>
             <Link to="/signup">
-              <Button className="rounded-full bg-deep text-white hover:bg-deep/90">Começar grátis</Button>
+              <Button className="rounded-full bg-deep text-white hover:bg-deep/90 shadow-md shadow-deep/10 transition-all hover:scale-105">
+                Começar grátis
+              </Button>
             </Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-deep md:hidden hover:bg-surface transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {mobileMenuOpen && (
+          <div className="border-t border-border/60 bg-background px-6 py-4 md:hidden animate-in fade-in slide-in-from-top-4 duration-200">
+            <nav className="flex flex-col gap-4 text-sm font-medium text-slate">
+              <a
+                href="#produto"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Produto
+              </a>
+              <a
+                href="#como"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Como funciona
+              </a>
+              <a
+                href="#simulador"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Simulador
+              </a>
+              <a
+                href="#impacto"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Impacto
+              </a>
+              <a
+                href="#depoimentos"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                Clientes
+              </a>
+              <a
+                href="#faq"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 border-b border-border/40 hover:text-primary"
+              >
+                FAQ
+              </a>
+              <div className="flex flex-col gap-3 pt-4">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-center py-2 text-deep font-semibold hover:text-primary"
+                >
+                  Entrar
+                </Link>
+                <Link to="/signup" onClick={() => setMobileMenuOpen(false)}>
+                  <Button className="w-full rounded-full bg-primary text-white hover:bg-primary/90">
+                    Começar grátis
+                  </Button>
+                </Link>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
@@ -40,63 +163,108 @@ function Landing() {
           <div className="absolute right-0 top-40 h-80 w-80 rounded-full bg-primary/20 blur-3xl" />
         </div>
 
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-12 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-12 lg:py-24">
           <div className="lg:col-span-7">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              <Sparkles className="h-3.5 w-3.5" /> Healthtech B2B • Brasil
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary animate-pulse">
+              <Sparkles className="h-3.5 w-3.5" /> B2B Healthtech • Líder em Economia Circular
             </span>
-            <h1 className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-deep md:text-6xl lg:text-7xl">
-              Uma nova vida<br />
-              para <span className="text-primary">medicamentos</span> <br className="hidden md:block" />
-              próximos do vencimento.
+            <h1 className="mt-6 text-4xl font-extrabold leading-[1.1] tracking-tight text-deep sm:text-5xl md:text-6xl lg:text-7xl">
+              Uma nova vida
+              <br />
+              para{" "}
+              <span className="bg-gradient-to-r from-primary to-mint bg-clip-text text-transparent">
+                medicamentos
+              </span>{" "}
+              <br className="hidden md:block" />
+              próximos da validade.
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-slate">
-              Revitta conecta farmácias, clínicas, distribuidoras e laboratórios em uma
-              rede segura de redistribuição. Menos descarte, mais recuperação de valor.
+            <p className="mt-6 max-w-xl text-lg text-slate leading-relaxed">
+              Conectamos farmácias, clínicas, distribuidoras e laboratórios em uma rede robusta e
+              segura de redistribuição farmacêutica. Menos desperdício ecológico, mais rentabilidade
+              financeira.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link to="/signup">
-                <Button size="lg" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90">
-                  Começar agora <ArrowRight className="ml-1 h-4 w-4" />
+                <Button
+                  size="lg"
+                  className="rounded-full bg-primary text-primary-foreground hover:bg-primary/95 shadow-lg shadow-primary/20 transition-all hover:scale-105"
+                >
+                  Começar agora grátis <ArrowRight className="ml-1.5 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/dashboard">
-                <Button size="lg" variant="outline" className="rounded-full border-deep/20 text-deep hover:bg-deep/5">
-                  Ver dashboard demo
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-deep/20 text-deep hover:bg-deep/5 transition-all hover:scale-105"
+                >
+                  Ver painel demonstrativo
                 </Button>
               </Link>
             </div>
 
-            <div className="mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-6">
+            <div className="mt-12 grid max-w-lg grid-cols-3 gap-6 border-t border-border/60 pt-6">
               <Stat value="R$ 2,4M" label="recuperados" />
-              <Stat value="12.8k" label="medicamentos" />
-              <Stat value="340+" label="farmácias" />
+              <Stat value="12.800+" label="caixas salvas" />
+              <Stat value="340+" label="empresas ativas" />
             </div>
           </div>
 
-          {/* Visual */}
-          <div className="lg:col-span-5">
-            <div className="relative">
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-brand opacity-20 blur-2xl" />
-              <div className="relative rounded-3xl border border-border/60 bg-card p-5 shadow-xl">
+          {/* Visual Hero Side */}
+          <div className="lg:col-span-5 relative flex flex-col items-center justify-center">
+            <div className="relative w-full max-w-md lg:max-w-none">
+              {/* Blur Backing */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-brand opacity-25 blur-3xl animate-pulse" />
+
+              {/* Central Circular Doctor Graphic */}
+              <div className="relative mx-auto flex h-72 w-72 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 via-mint/30 to-primary/10 p-2 shadow-xl border border-white/40 mb-6">
+                <div className="h-full w-full rounded-full overflow-hidden border-4 border-white bg-card shadow-inner">
+                  <img
+                    src={heroDoctor}
+                    alt="Médico especialista parceiro Revitta"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+
+                {/* Floating Badges */}
+                <div className="absolute -top-2 -right-4 bg-glass border border-white/30 backdrop-blur-md rounded-2xl px-3 py-1.5 shadow-lg flex items-center gap-2">
+                  <span className="flex h-2 w-2 rounded-full bg-risk-safe" />
+                  <span className="text-[10px] font-bold text-deep uppercase tracking-wider">
+                    ANVISA RDC 304
+                  </span>
+                </div>
+
+                <div className="absolute -bottom-2 -left-4 bg-glass border border-white/30 backdrop-blur-md rounded-2xl px-3 py-1.5 shadow-lg flex items-center gap-2">
+                  <span className="flex h-2 w-2 rounded-full bg-primary" />
+                  <span className="text-[10px] font-bold text-deep uppercase tracking-wider">
+                    SNGPC Integrado
+                  </span>
+                </div>
+              </div>
+
+              {/* Floating HUD glassmorphic details */}
+              <div className="relative rounded-3xl border border-border/60 bg-card/90 backdrop-blur-md p-6 shadow-2xl transition-transform duration-500 hover:scale-[1.01]">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-medium text-slate">Centro de Controle</p>
-                    <p className="text-sm font-semibold text-deep">Farmácia Central — SP</p>
+                    <p className="text-xs font-semibold text-slate uppercase tracking-wider">
+                      Centro de Controle
+                    </p>
+                    <p className="text-base font-bold text-deep">Redistribuição em tempo real</p>
                   </div>
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-mint/20 text-primary">
                     <Activity className="h-4 w-4" />
                   </span>
                 </div>
+
                 <div className="mt-4 grid grid-cols-2 gap-3">
-                  <MiniMetric color="risk-danger" label="Em risco" value="247" />
-                  <MiniMetric color="primary" label="Recuperado" value="R$ 184k" />
+                  <MiniMetric color="risk-danger" label="Em risco de descarte" value="247 lotes" />
+                  <MiniMetric color="primary" label="Recuperado (Rede)" value="R$ 184.200" />
                 </div>
+
                 <div className="mt-4 space-y-2">
                   <ProductRow name="Paracetamol 500mg" days={8} />
                   <ProductRow name="Amoxicilina 875mg" days={12} />
                   <ProductRow name="Ibuprofeno 600mg" days={28} />
-                  <ProductRow name="Dipirona 1g" days={62} />
                 </div>
               </div>
             </div>
@@ -106,96 +274,380 @@ function Landing() {
 
       {/* TRUST BAR */}
       <section className="border-y border-border/60 bg-background/60">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-12 gap-y-4 px-6 py-8 text-sm font-semibold uppercase tracking-wider text-slate/70">
-          <span>RDC ANVISA</span>
-          <span>•</span>
-          <span>LGPD compliant</span>
-          <span>•</span>
-          <span>SNGPC integrado</span>
-          <span>•</span>
-          <span>Rastreabilidade total</span>
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-6 text-sm font-semibold uppercase tracking-wider text-slate/70">
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-primary" /> RDC ANVISA 304/340
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-primary" /> LGPD 100% COMPLIANT
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-primary" /> INTEGRAÇÃO SNGPC
+          </span>
+          <span className="hidden sm:inline">•</span>
+          <span className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-primary" /> RASTREABILIDADE TOTAL
+          </span>
+        </div>
+      </section>
+
+      {/* LOTES RECÉM-ANUNCIADOS */}
+      <section className="mx-auto max-w-7xl px-6 py-20 bg-background">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-mint/15 px-3 py-1.5 text-xs font-bold text-primary">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              Oportunidades em Tempo Real
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl">
+              Lotes Recém-Anunciados
+            </h2>
+            <p className="mt-2 text-slate text-sm max-w-xl">
+              Medicamentos originais cadastrados por parceiros homologados, disponíveis para
+              redistribuição imediata com alta margem de economia.
+            </p>
+          </div>
+          <Link to="/signup" className="mt-4 md:mt-0">
+            <Button
+              variant="outline"
+              className="rounded-full border-primary/30 text-primary hover:bg-primary/5 transition-all"
+            >
+              Ver todos os lotes <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              id: 1,
+              name: "Vitamina C + Zinco 1000mg",
+              category: "Vitaminas / Suplementos",
+              img: productVitamins,
+              quantity: "320 caixas",
+              originalPrice: "R$ 28,90",
+              revittaPrice: "R$ 11,50",
+              discount: "60% OFF",
+              expiry: "18/06/2026",
+              daysLeft: 27,
+              location: "São Paulo - SP",
+            },
+            {
+              id: 2,
+              name: "Amoxicilina 500mg (G)",
+              category: "Antibióticos",
+              img: productAntibiotics,
+              quantity: "150 caixas",
+              originalPrice: "R$ 42,00",
+              revittaPrice: "R$ 14,70",
+              discount: "65% OFF",
+              expiry: "02/06/2026",
+              daysLeft: 11,
+              location: "Rio de Janeiro - RJ",
+            },
+            {
+              id: 3,
+              name: "Xarope Fitoterápico 120ml",
+              category: "Líquidos / Xaropes",
+              img: productSyrup,
+              quantity: "580 frascos",
+              originalPrice: "R$ 19,80",
+              revittaPrice: "R$ 6,90",
+              discount: "65% OFF",
+              expiry: "29/06/2026",
+              daysLeft: 38,
+              location: "Belo Horizonte - MG",
+            },
+            {
+              id: 4,
+              name: "Cápsulas Gelatinosas Ômega 3",
+              category: "Cápsulas / Softgel",
+              img: productCapsules,
+              quantity: "240 potes",
+              originalPrice: "R$ 55,00",
+              revittaPrice: "R$ 22,00",
+              discount: "60% OFF",
+              expiry: "12/06/2026",
+              daysLeft: 21,
+              location: "Curitiba - PR",
+            },
+          ].map((lot) => {
+            const level =
+              lot.daysLeft <= 15 ? "risk-danger" : lot.daysLeft <= 30 ? "risk-warn" : "risk-safe";
+            return (
+              <div
+                key={lot.id}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-border/60 bg-card p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-xl"
+              >
+                {/* Image Section */}
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-surface">
+                  <img
+                    src={lot.img}
+                    alt={lot.name}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute top-3 left-3 bg-glass border border-white/20 backdrop-blur-md rounded-full px-2.5 py-1 shadow-sm">
+                    <p className="text-[10px] font-bold text-deep">{lot.category}</p>
+                  </div>
+                  <div className="absolute top-3 right-3 bg-primary text-white rounded-full px-2 py-0.5 text-[10px] font-extrabold shadow-md">
+                    {lot.discount}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="mt-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-base font-extrabold text-deep group-hover:text-primary transition-colors line-clamp-1">
+                      {lot.name}
+                    </h3>
+                    <div className="mt-2 flex items-center justify-between text-xs text-slate">
+                      <span className="flex items-center gap-1 font-semibold">
+                        <Package className="h-3.5 w-3.5 text-slate/70" />
+                        {lot.quantity}
+                      </span>
+                      <span className="flex items-center gap-1 font-semibold">
+                        <MapPin className="h-3.5 w-3.5 text-slate/70" />
+                        {lot.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-border/50">
+                    {/* Validade Warning */}
+                    <div className="flex items-center justify-between text-xs mb-3">
+                      <span className="text-slate font-semibold">Validade: {lot.expiry}</span>
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold"
+                        style={{
+                          background: `color-mix(in oklab, var(--${level}) 12%, transparent)`,
+                          color: `var(--${level})`,
+                        }}
+                      >
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${lot.daysLeft <= 15 ? "animate-pulse" : ""}`}
+                          style={{ backgroundColor: `var(--${level})` }}
+                        />
+                        {lot.daysLeft}d restantes
+                      </span>
+                    </div>
+
+                    {/* Price & Action */}
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] text-slate/70 line-through block font-medium">
+                          {lot.originalPrice}
+                        </span>
+                        <span className="text-lg font-black text-primary">{lot.revittaPrice}</span>
+                      </div>
+                      <Link to="/signup">
+                        <Button className="rounded-full bg-deep text-white hover:bg-deep/90 text-xs px-4 h-9 shadow-md shadow-deep/5 transition-all hover:scale-105">
+                          Tenho Interesse
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* FEATURES */}
       <section id="produto" className="mx-auto max-w-7xl px-6 py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary">Plataforma</p>
-          <h2 className="mt-3 text-4xl font-bold tracking-tight text-deep md:text-5xl">
-            Tudo que sua rede precisa para circular valor, não desperdício.
+          <p className="text-sm font-bold uppercase tracking-widest text-primary">Plataforma B2B</p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl md:text-5xl">
+            Tudo que sua empresa precisa para circular valor, não perdas.
           </h2>
         </div>
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <Feature icon={Tag} title="Cadastro inteligente" text="Lote, validade e armazenagem com leitura de código de barras e upload em lote." />
-          <Feature icon={ShieldCheck} title="Marketplace seguro" text="Redistribua para a rede certa, com prioridade visual e reserva em 1 clique." />
-          <Feature icon={Truck} title="Rastreio farmacêutico" text="Timeline de retirada, transporte e entrega com registro de auditoria." />
-          <Feature icon={BarChart3} title="Insights preditivos" text="Previsão de descarte, perdas evitadas e impacto ambiental em tempo real." />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Feature
+            icon={Tag}
+            title="Cadastro Inteligente"
+            text="Lote, validade e armazenamento via leitura de código de barras e importação de planilha em lote."
+          />
+          <Feature
+            icon={ShieldCheck}
+            title="Marketplace Seguro"
+            text="Redistribua de forma privada para estabelecimentos da sua rede, com reserva automática e 1-clique."
+          />
+          <Feature
+            icon={Truck}
+            title="Rastreio Logístico"
+            text="Timeline de retirada, transporte e entrega em conformidade com as regras de temperatura ANVISA."
+          />
+          <Feature
+            icon={BarChart3}
+            title="Insights Preditivos"
+            text="Previsão de vencimentos no estoque, perdas financeiras evitadas e relatórios ESG prontos para auditoria."
+          />
         </div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="como" className="bg-deep text-white">
+      <section id="como" className="bg-deep text-white relative overflow-hidden">
+        <div className="pointer-events-none absolute right-0 bottom-0 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+
         <div className="mx-auto max-w-7xl px-6 py-24">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-wider text-mint">Como funciona</p>
-            <h2 className="mt-3 text-4xl font-bold md:text-5xl">
-              Da prateleira em risco até a redistribuição, em <span className="text-mint">4 passos</span>.
+            <p className="text-sm font-bold uppercase tracking-widest text-mint">Fluxo Simples</p>
+            <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl md:text-5xl">
+              Da prateleira em risco até a redistribuição, em{" "}
+              <span className="text-mint">4 passos práticos</span>.
             </h2>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { n: "01", t: "Cadastre", d: "Leitor de barras ou upload em lote — Revitta calcula o risco automaticamente." },
-              { n: "02", t: "Publique", d: "Produtos próximos do vencimento entram no marketplace privado da rede." },
-              { n: "03", t: "Conecte", d: "Farmácias e clínicas próximas reservam em tempo real, com prioridade visual." },
-              { n: "04", t: "Rastreie", d: "Logística farmacêutica auditável até a entrega final, com prova de cadeia." },
-            ].map(s => (
-              <div key={s.n} className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur">
-                <span className="text-sm font-mono text-mint">{s.n}</span>
-                <h3 className="mt-3 text-xl font-semibold">{s.t}</h3>
-                <p className="mt-2 text-sm text-white/70">{s.d}</p>
+              {
+                n: "01",
+                t: "Cadastre",
+                d: "Escaneie o código de barras ou envie seu inventário. A inteligência Revitta faz o cálculo de risco.",
+              },
+              {
+                n: "02",
+                t: "Publique",
+                d: "Os lotes próximos ao vencimento são anunciados no ecossistema privado ou público da rede.",
+              },
+              {
+                n: "03",
+                t: "Combine",
+                d: "Outras farmácias ou clínicas encontram os itens, efetuam a reserva e efetuam o matching instantâneo.",
+              },
+              {
+                n: "04",
+                t: "Rastreie",
+                d: "Coleta e entrega feitas por parceiros homologados da saúde com auditoria digital.",
+              },
+            ].map((s) => (
+              <div
+                key={s.n}
+                className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur transition-all duration-300 hover:bg-white/[0.06] hover:border-mint/30"
+              >
+                <span className="text-xs font-mono font-bold text-mint bg-mint/10 px-2.5 py-1 rounded-full">
+                  {s.n}
+                </span>
+                <h3 className="mt-5 text-xl font-bold group-hover:text-mint transition-colors">
+                  {s.t}
+                </h3>
+                <p className="mt-2.5 text-sm text-white/70 leading-relaxed">{s.d}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* IMPACT */}
-      <section id="impacto" className="mx-auto max-w-7xl px-6 py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wider text-primary">Impacto real</p>
-            <h2 className="mt-3 text-4xl font-bold tracking-tight text-deep md:text-5xl">
-              Redução de <span className="text-primary">70%</span> em perdas farmacêuticas.
-            </h2>
-            <p className="mt-5 max-w-lg text-slate">
-              Cada caixa redistribuída é menos descarte, mais acesso e mais margem.
-              Revitta transforma o vencimento em uma nova oportunidade.
+      {/* SIMULATOR SECTION */}
+      <section id="simulador" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="grid gap-12 lg:grid-cols-12 items-center">
+          <div className="lg:col-span-5">
+            <p className="text-sm font-bold uppercase tracking-widest text-primary">
+              Simulação de ROI
             </p>
-            <ul className="mt-8 space-y-3">
-              {[
-                "Recuperação média de 62% do valor original",
-                "Auditoria completa para conformidade ANVISA",
-                "Integração com SNGPC e ERPs farmacêuticos",
-                "Relatório ESG de impacto ambiental evitado",
-              ].map(t => (
-                <li key={t} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                  <span className="text-slate">{t}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative">
-            <div className="rounded-3xl bg-gradient-brand p-8 text-white shadow-xl">
-              <div className="flex items-baseline gap-2">
-                <span className="text-7xl font-bold leading-none">70%</span>
-                <span className="text-mint">menos perdas</span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl">
+              Pare de jogar dinheiro no lixo. Comece a recuperar hoje.
+            </h2>
+            <p className="mt-5 text-slate leading-relaxed">
+              O descarte incorreto de medicamentos gera passivos ambientais e prejuízos operacionais
+              severos. Ao redistribuir produtos no marketplace Revitta, você transforma o que seria
+              despesa de incineração em receita líquida recuperada.
+            </p>
+            <div className="mt-6 flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                <span className="text-sm font-semibold text-deep">
+                  Sem custos fixos de adesão ou taxas ocultas
+                </span>
               </div>
-              <p className="mt-3 text-white/80">média entre as 340 farmácias da rede em 2025.</p>
-              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/15 pt-6 text-sm">
-                <Mini t="R$ 521k" s="recuperado/mês" />
-                <Mini t="89" s="redistribuições" />
-                <Mini t="2.1t" s="CO₂ evitado" />
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                <span className="text-sm font-semibold text-deep">
+                  Cálculo em conformidade com o preço fábrica (PF)
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="h-2 w-2 rounded-full bg-primary" />
+                <span className="text-sm font-semibold text-deep">
+                  Resultados integrados ao seu balancete contábil
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <CalculatorWidget />
+          </div>
+        </div>
+      </section>
+
+      {/* IMPACT & ESG */}
+      <section id="impacto" className="bg-surface border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-widest text-primary">
+                Conformidade & ESG
+              </p>
+              <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl md:text-5xl">
+                Redução de até <span className="text-primary">70%</span> nas perdas de medicamentos.
+              </h2>
+              <p className="mt-5 max-w-lg text-slate leading-relaxed">
+                Cada lote circularizado representa menos medicamentos químicos contaminando o solo,
+                maior acesso da população a tratamentos de saúde e relatórios ESG auditáveis de
+                conformidade ambiental.
+              </p>
+              <ul className="mt-8 space-y-4">
+                {[
+                  "Recuperação média de 62% do custo de aquisição original",
+                  "Auditoria completa de cadeia e temperatura (ANVISA RDC 304)",
+                  "Integração contábil e de inventário com ERPs líderes do setor",
+                  "Certificação digital de CO₂ equivalente evitado por lote",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-3">
+                    <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-primary" />
+                    <span className="font-semibold text-deep text-sm">{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="relative">
+              {/* Decorative Glow */}
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-brand opacity-20 blur-3xl" />
+
+              {/* Main Image Container */}
+              <div className="relative h-[480px] w-full overflow-hidden rounded-3xl border border-white/20 shadow-2xl">
+                <img
+                  src={aboutPharmacist}
+                  alt="Farmacêutica parceira Revitta no laboratório"
+                  className="h-full w-full object-cover object-center"
+                />
+
+                {/* Gradient Overlay to ensure text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-deep/90 via-deep/40 to-transparent" />
+
+                {/* Floating Glassmorphic Stats Panel */}
+                <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-deep/85 backdrop-blur-md p-6 text-white shadow-xl">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-5xl font-black leading-none tracking-tight text-white">
+                      70%
+                    </span>
+                    <span className="text-mint font-extrabold uppercase text-xs tracking-wider">
+                      de redução de descarte
+                    </span>
+                  </div>
+                  <p className="mt-2 text-white/80 text-xs leading-relaxed">
+                    Média auditada entre as 340 farmácias conectadas no ecossistema nacional no ano
+                    de 2025.
+                  </p>
+                  <div className="mt-5 grid grid-cols-3 gap-4 border-t border-white/15 pt-4 text-center">
+                    <Mini t="R$ 521k" s="recuperados/mês" />
+                    <Mini t="8.940" s="redistribuições" />
+                    <Mini t="25.4t" s="CO₂ evitado" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -203,44 +655,134 @@ function Landing() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section id="depoimentos" className="bg-surface">
-        <div className="mx-auto max-w-7xl px-6 py-24">
-          <h2 className="text-center text-4xl font-bold tracking-tight text-deep md:text-5xl">
-            Quem já circula com a <span className="text-primary">Revitta</span>.
+      <section id="depoimentos" className="mx-auto max-w-7xl px-6 py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-bold uppercase tracking-widest text-primary">
+            Depoimentos reais
+          </p>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-deep sm:text-4xl">
+            Quem já circula seu estoque com a Revitta
           </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            <Quote name="Maria Oliveira" role="Farmácia Central — SP" quote="Cortamos 82% das perdas em 4 meses. O sistema se pagou em duas semanas." />
-            <Quote name="Carlos Santos" role="Drogaria Saúde — RJ" quote="Já redistribuímos mais de R$ 47 mil que iam para descarte." />
-            <Quote name="Ana Costa" role="Clínica Vital — PR" quote="Vendemos mais perto do vencimento. Estoque saudável, conta no azul." />
+        </div>
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Quote
+            name="Maria Oliveira"
+            role="Gerente de Compras • Farmácia Central — SP"
+            quote="Cortamos 82% das perdas de validade em menos de 4 meses de uso da plataforma. O sistema se pagou em duas semanas."
+            avatarUrl="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&h=120&q=80"
+          />
+          <Quote
+            name="Carlos Santos"
+            role="Diretor de Logística • Drogaria Saúde — RJ"
+            quote="Já redistribuímos mais de R$ 47 mil em mercadorias que antes iam direto para a incineração. A rastreabilidade ANVISA é impecável."
+            avatarUrl="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&h=120&q=80"
+          />
+          <Quote
+            name="Ana Costa"
+            role="Coordenadora Farmacêutica • Clínica Vital — PR"
+            quote="Conseguimos escoar lotes muito perto do vencimento. Excelente para o caixa e mantém nosso estoque sempre saudável."
+            avatarUrl="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&h=120&q=80"
+          />
+        </div>
+      </section>
+
+      {/* FAQ SECTION */}
+      <section id="faq" className="bg-surface border-t border-border/60">
+        <div className="mx-auto max-w-4xl px-6 py-24">
+          <div className="text-center mb-12">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary mb-3">
+              <HelpIcon className="h-5 w-5" />
+            </span>
+            <h2 className="text-3xl font-extrabold text-deep">Dúvidas Frequentes</h2>
+            <p className="mt-2 text-slate text-sm">
+              Respostas para as principais perguntas sobre conformidade e operações
+            </p>
+          </div>
+
+          <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-lg sm:p-8 space-y-2">
+            <FAQItem
+              question="A Revitta está em conformidade com as exigências da ANVISA?"
+              answer="Sim. A plataforma foi desenhada sob as regras da RDC 304 e RDC 340, que regulamentam a distribuição e armazenamento de medicamentos. Todos os processos de transporte, verificação de lote e registro de temperatura contam com registro auditável em nossa base de dados."
+            />
+            <FAQItem
+              question="Qual é o custo para começar a usar a plataforma?"
+              answer="Você pode criar sua conta de forma totalmente gratuita e começar a cadastrar seus lotes sem mensalidade fixa. Cobramos uma comissão percentual justa apenas sobre os medicamentos que forem redistribuídos com sucesso dentro da rede."
+            />
+            <FAQItem
+              question="Como funciona a logística de coleta e entrega?"
+              answer="A logística é realizada por transportadoras licenciadas na ANVISA e integradas ao ecossistema da Revitta. Após o matching e aceitação da redistribuição, o sistema emite o roteiro de coleta inteligente com garantia de controle térmico do início ao fim."
+            />
+            <FAQItem
+              question="A plataforma se integra com o nosso sistema ERP interno?"
+              answer="Sim, oferecemos APIs de fácil integração com os principais ERPs farmacêuticos e hospitalares do mercado. Isso possibilita a sincronização automática de lotes e validade sem a necessidade de digitação dupla."
+            />
+            <FAQItem
+              question="Quem define o valor de venda do medicamento próximo ao vencimento?"
+              answer="O estabelecimento proprietário do medicamento possui total autonomia para escolher o preço de oferta do lote. A plataforma sugere um desconto estratégico baseado no tempo restante de validade para acelerar o processo de redistribuição."
+            />
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="relative overflow-hidden rounded-3xl bg-deep p-12 text-white">
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/40 blur-3xl" />
-          <div className="relative grid items-center gap-6 md:grid-cols-[1fr_auto]">
-            <div>
-              <h3 className="text-3xl font-bold md:text-4xl">Pronto para dar uma nova vida ao seu estoque?</h3>
-              <p className="mt-3 text-white/70">Junte-se a 340+ estabelecimentos. Sem cartão de crédito.</p>
-            </div>
-            <div className="flex gap-3">
-              <Link to="/signup"><Button size="lg" className="rounded-full bg-mint text-deep hover:bg-mint/90">Começar grátis</Button></Link>
-              <Link to="/dashboard"><Button size="lg" variant="outline" className="rounded-full border-white/30 bg-transparent text-white hover:bg-white/10">Ver demo</Button></Link>
+      <section className="mx-auto max-w-7xl px-6 pb-24 pt-12">
+        <div className="relative overflow-hidden rounded-3xl bg-deep px-8 py-16 text-center text-white sm:px-12 sm:py-20 shadow-2xl">
+          {/* Subtle decoration blobs */}
+          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl" />
+          <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-mint/20 blur-3xl" />
+
+          <div className="relative max-w-3xl mx-auto flex flex-col items-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-mint/25 bg-mint/10 px-3 py-1 text-xs font-semibold text-mint">
+              Inicie em 5 minutos
+            </span>
+            <h3 className="mt-6 text-3xl font-extrabold md:text-5xl leading-tight">
+              Pronto para otimizar seu estoque e impulsionar suas margens?
+            </h3>
+            <p className="mt-4 text-white/70 max-w-xl text-base">
+              Junte-se a centenas de estabelecimentos ativamente engajados na saúde financeira e
+              ambiental. Teste gratuito imediato.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4 justify-center">
+              <Link to="/signup">
+                <Button
+                  size="lg"
+                  className="rounded-full bg-mint text-deep hover:bg-mint/90 font-bold transition-all hover:scale-105 px-8"
+                >
+                  Criar conta grátis
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-white/35 bg-transparent text-white hover:bg-white/10 transition-all hover:scale-105 px-8"
+                >
+                  Acessar painel demo
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer className="border-t border-border/60 bg-background">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate md:flex-row">
-          <Logo />
-          <p>© 2026 Revitta. Uma nova vida para medicamentos.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-primary">Privacidade</a>
-            <a href="#" className="hover:text-primary">Termos</a>
-            <a href="#" className="hover:text-primary">Contato</a>
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-12 text-sm text-slate md:flex-row">
+          <Logo imgClassName="h-24" />
+          <p>
+            © 2026 Revitta Tecnologia. Todos os direitos reservados. Uma nova vida para
+            medicamentos.
+          </p>
+          <div className="flex gap-6 font-semibold">
+            <a href="#" className="hover:text-primary transition-colors">
+              Privacidade
+            </a>
+            <a href="#" className="hover:text-primary transition-colors">
+              Termos
+            </a>
+            <a href="#" className="hover:text-primary transition-colors">
+              Suporte
+            </a>
           </div>
         </div>
       </footer>
@@ -250,60 +792,217 @@ function Landing() {
 
 function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div>
-      <p className="text-2xl font-bold text-deep">{value}</p>
-      <p className="text-xs text-slate">{label}</p>
+    <div className="text-center sm:text-left">
+      <p className="text-2xl font-black text-deep md:text-3xl">{value}</p>
+      <p className="text-xs font-semibold text-slate mt-0.5">{label}</p>
     </div>
   );
 }
+
 function MiniMetric({ color, label, value }: { color: string; label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-border/60 bg-surface p-3">
-      <p className="text-[11px] font-medium text-slate">{label}</p>
-      <p className="mt-1 text-lg font-bold" style={{ color: `var(--${color})` }}>{value}</p>
+    <div className="rounded-xl border border-border/60 bg-surface p-3 transition-colors hover:bg-border/30">
+      <p className="text-[10px] font-bold uppercase tracking-wider text-slate">{label}</p>
+      <p className="mt-1 text-lg font-black" style={{ color: `var(--${color})` }}>
+        {value}
+      </p>
     </div>
   );
 }
+
 function ProductRow({ name, days }: { name: string; days: number }) {
   const level = days <= 15 ? "risk-danger" : days <= 30 ? "risk-warn" : "risk-safe";
   return (
-    <div className="flex items-center justify-between rounded-lg border border-border/50 bg-surface px-3 py-2">
-      <span className="text-sm font-medium text-deep">{name}</span>
-      <span className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-semibold" style={{ background: `color-mix(in oklab, var(--${level}) 14%, transparent)`, color: `var(--${level})` }}>
-        <span className="h-1.5 w-1.5 rounded-full" style={{ background: `var(--${level})` }} />
+    <div className="flex items-center justify-between rounded-xl border border-border/50 bg-surface px-4 py-2.5 hover:bg-border/10 transition-colors">
+      <span className="text-sm font-semibold text-deep">{name}</span>
+      <span
+        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-bold transition-all"
+        style={{
+          background: `color-mix(in oklab, var(--${level}) 12%, transparent)`,
+          color: `var(--${level})`,
+        }}
+      >
+        <span
+          className={`h-2 w-2 rounded-full ${days <= 15 ? "animate-pulse" : ""}`}
+          style={{ background: `var(--${level})` }}
+        />
         {days}d
       </span>
     </div>
   );
 }
+
 function Feature({ icon: Icon, title, text }: { icon: any; title: string; text: string }) {
   return (
-    <div className="group rounded-2xl border border-border/60 bg-card p-6 transition hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
-      <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-mint/15 text-primary group-hover:bg-primary group-hover:text-white">
+    <div className="group rounded-2xl border border-border/60 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/55 hover:shadow-lg">
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-mint/15 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
         <Icon className="h-5 w-5" />
       </span>
-      <h3 className="mt-5 text-lg font-semibold text-deep">{title}</h3>
-      <p className="mt-2 text-sm text-slate">{text}</p>
+      <h3 className="mt-5 text-lg font-bold text-deep group-hover:text-primary transition-colors">
+        {title}
+      </h3>
+      <p className="mt-2.5 text-sm text-slate leading-relaxed">{text}</p>
     </div>
   );
 }
+
 function Mini({ t, s }: { t: string; s: string }) {
-  return <div><p className="text-xl font-bold">{t}</p><p className="text-xs text-white/70">{s}</p></div>;
-}
-function Quote({ name, role, quote }: { name: string; role: string; quote: string }) {
   return (
-    <figure className="rounded-2xl border border-border/60 bg-card p-6">
-      <Heart className="h-5 w-5 text-primary" />
-      <blockquote className="mt-4 text-deep">"{quote}"</blockquote>
-      <figcaption className="mt-5 flex items-center gap-3 border-t border-border/60 pt-4">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-mint/30 text-sm font-bold text-deep">
-          {name.split(" ").map(n => n[0]).slice(0, 2).join("")}
-        </span>
+    <div>
+      <p className="text-xl font-black md:text-2xl">{t}</p>
+      <p className="text-[10px] font-bold uppercase tracking-wider text-white/70 mt-0.5">{s}</p>
+    </div>
+  );
+}
+
+function Quote({
+  name,
+  role,
+  quote,
+  avatarUrl,
+}: {
+  name: string;
+  role: string;
+  quote: string;
+  avatarUrl: string;
+}) {
+  return (
+    <figure className="rounded-2xl border border-border/60 bg-card p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+      <div>
+        <Heart className="h-5 w-5 text-primary fill-primary/10" />
+        <blockquote className="mt-4 text-sm font-medium text-deep leading-relaxed">
+          "{quote}"
+        </blockquote>
+      </div>
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-border/60 pt-4">
+        <img
+          src={avatarUrl}
+          alt={name}
+          className="h-10 w-10 rounded-full object-cover ring-2 ring-primary/20"
+        />
         <div>
-          <p className="text-sm font-semibold text-deep">{name}</p>
+          <p className="text-sm font-bold text-deep">{name}</p>
           <p className="text-xs text-slate">{role}</p>
         </div>
       </figcaption>
     </figure>
+  );
+}
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="border-b border-border/50 py-4.5 last:border-b-0">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex w-full items-center justify-between text-left font-bold text-deep hover:text-primary transition-colors focus:outline-none"
+      >
+        <span className="text-base sm:text-lg pr-4">{question}</span>
+        <ChevronDown
+          className={`h-5 w-5 text-slate shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : ""}`}
+        />
+      </button>
+      <div
+        className={`grid transition-all duration-300 ease-in-out ${
+          isOpen ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <p className="text-sm text-slate leading-relaxed font-medium bg-surface/50 rounded-xl p-3 border border-border/30">
+            {answer}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CalculatorWidget() {
+  const [monthlyLoss, setMonthlyLoss] = useState(15000);
+
+  // Recovery is 62%
+  const annualSavings = Math.round(monthlyLoss * 12 * 0.62);
+  const totalAnnualLoss = monthlyLoss * 12;
+  const medicinesSaved = Math.round((monthlyLoss / 50) * 12);
+  const co2Avoided = ((monthlyLoss / 100) * 0.05 * 12).toFixed(1);
+
+  return (
+    <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-xl lg:p-8 relative">
+      <div className="flex items-center gap-3">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <Calculator className="h-5 w-5" />
+        </span>
+        <div>
+          <h3 className="text-lg font-extrabold text-deep">Simulador de Economia</h3>
+          <p className="text-xs text-slate">Calcule o retorno sobre descarte evitado</p>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        <div className="flex items-center justify-between font-bold text-sm">
+          <span className="text-deep">Lotes a vencer por mês</span>
+          <span className="text-lg font-black text-primary">
+            R$ {monthlyLoss.toLocaleString("pt-BR")}
+          </span>
+        </div>
+        <input
+          type="range"
+          min="2000"
+          max="150000"
+          step="1000"
+          value={monthlyLoss}
+          onChange={(e) => setMonthlyLoss(parseInt(e.target.value))}
+          className="mt-4 h-2 w-full cursor-pointer rounded-lg bg-border accent-primary focus:outline-none"
+        />
+        <div className="mt-2 flex justify-between text-[10px] font-bold text-slate">
+          <span>R$ 2.000</span>
+          <span>R$ 75.000</span>
+          <span>R$ 150.000</span>
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
+            Economia Anual Estimada
+          </p>
+          <p className="mt-2 text-2xl font-black text-primary">
+            R$ {annualSavings.toLocaleString("pt-BR")}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-slate/85">
+            recuperação estimada de 62%
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
+            Prejuízo Anual sem Revitta
+          </p>
+          <p className="mt-2 text-xl font-extrabold text-risk-danger">
+            R$ {totalAnnualLoss.toLocaleString("pt-BR")}
+          </p>
+          <p className="mt-1 text-[10px] font-semibold text-slate/85">prejuízo de incineração</p>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-4 border-t border-border/60 pt-4 text-center">
+        <div>
+          <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
+            Unidades Salvas/Ano
+          </p>
+          <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
+            <Package className="h-4 w-4 text-mint" /> {medicinesSaved} un.
+          </p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
+            Pegada de Carbono Evitada
+          </p>
+          <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
+            <Leaf className="h-4 w-4 text-primary" /> {co2Avoided}t CO₂
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
