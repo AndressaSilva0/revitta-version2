@@ -1,0 +1,164 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Revitta — Uma nova vida para medicamentos
+ * Brand palette:
+ *   #0A3D3A  deep-green
+ *   #119B7A  primary
+ *   #6AC89B  accent
+ *   #F5F7F6  surface
+ *   #4B5563  slate
+ */
+
+@theme inline {
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-deep: var(--deep);
+  --color-mint: var(--mint);
+  --color-surface: var(--surface);
+  --color-slate: var(--slate);
+
+  --color-risk-safe: var(--risk-safe);
+  --color-risk-warn: var(--risk-warn);
+  --color-risk-danger: var(--risk-danger);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+:root {
+  --radius: 0.875rem;
+
+  /* Brand */
+  --deep: oklch(0.32 0.045 175);          /* #0A3D3A */
+  --primary: oklch(0.58 0.12 167);        /* #119B7A */
+  --primary-foreground: oklch(0.985 0 0);
+  --mint: oklch(0.80 0.11 158);           /* #6AC89B */
+  --surface: oklch(0.975 0.004 160);      /* #F5F7F6 */
+  --slate: oklch(0.48 0.025 255);         /* #4B5563 */
+
+  --background: oklch(0.99 0.003 160);
+  --foreground: oklch(0.18 0.025 175);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.025 175);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.025 175);
+
+  --secondary: oklch(0.96 0.01 165);
+  --secondary-foreground: oklch(0.25 0.04 175);
+
+  --muted: oklch(0.965 0.006 160);
+  --muted-foreground: oklch(0.5 0.02 240);
+
+  --accent: oklch(0.94 0.04 160);
+  --accent-foreground: oklch(0.25 0.04 175);
+
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --border: oklch(0.92 0.008 165);
+  --input: oklch(0.92 0.008 165);
+  --ring: oklch(0.58 0.12 167);
+
+  /* Risk levels */
+  --risk-safe: oklch(0.65 0.15 155);      /* green */
+  --risk-warn: oklch(0.78 0.16 85);       /* amber */
+  --risk-danger: oklch(0.62 0.22 25);     /* red */
+
+  --chart-1: oklch(0.58 0.12 167);
+  --chart-2: oklch(0.80 0.11 158);
+  --chart-3: oklch(0.32 0.045 175);
+  --chart-4: oklch(0.78 0.16 85);
+  --chart-5: oklch(0.62 0.22 25);
+
+  --sidebar: oklch(0.985 0.003 160);
+  --sidebar-foreground: oklch(0.25 0.04 175);
+  --sidebar-primary: oklch(0.32 0.045 175);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.94 0.04 160);
+  --sidebar-accent-foreground: oklch(0.25 0.04 175);
+  --sidebar-border: oklch(0.92 0.008 165);
+  --sidebar-ring: oklch(0.58 0.12 167);
+}
+
+.dark {
+  --background: oklch(0.18 0.025 175);
+  --foreground: oklch(0.97 0.005 160);
+  --card: oklch(0.22 0.03 175);
+  --card-foreground: oklch(0.97 0.005 160);
+  --popover: oklch(0.22 0.03 175);
+  --popover-foreground: oklch(0.97 0.005 160);
+  --primary: oklch(0.7 0.13 165);
+  --primary-foreground: oklch(0.15 0.02 175);
+  --secondary: oklch(0.28 0.03 175);
+  --secondary-foreground: oklch(0.97 0.005 160);
+  --muted: oklch(0.26 0.025 175);
+  --muted-foreground: oklch(0.7 0.02 240);
+  --accent: oklch(0.3 0.04 165);
+  --accent-foreground: oklch(0.97 0.005 160);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Utility helpers */
+@layer utilities {
+  .bg-gradient-brand { background-image: linear-gradient(135deg, var(--deep), var(--primary)); }
+  .bg-gradient-mint  { background-image: linear-gradient(135deg, var(--primary), var(--mint)); }
+  .text-deep { color: var(--deep); }
+  .bg-deep { background-color: var(--deep); }
+  .bg-mint { background-color: var(--mint); }
+  .bg-surface { background-color: var(--surface); }
+  .ring-brand { box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 18%, transparent); }
+}
