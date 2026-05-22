@@ -11,9 +11,6 @@ import { nitro } from "nitro/vite";
 // Cloudflare plugin is disabled; Nitro handles SSR bundling for Vercel.
 export default defineConfig({
   cloudflare: false,
-  tanstackStart: {
-    server: { entry: "server" },
-  },
   vite: {
     plugins: [nitro({ preset: "vercel" })],
   },
