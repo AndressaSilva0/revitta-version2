@@ -16,7 +16,8 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useUserType } from "@/hooks/useUserType";
 import loginBg from "@/assets/login-bg.png";
 
 export const Route = createFileRoute("/login")({
@@ -26,10 +27,18 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const nav = useNavigate();
+  const { userType, setUserType } = useUserType();
+  const [selectedTab, setSelectedTab] = useState<"empresa" | "consumidor">("empresa");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (userType === "consumidor" || userType === "empresa") {
+      setSelectedTab(userType);
+    }
+  }, [userType]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,6 +54,7 @@ function LoginPage() {
     }
 
     setIsLoading(true);
+    setUserType(selectedTab);
 
     // Simulate loading for realistic feedback
     setTimeout(() => {
@@ -87,8 +97,8 @@ function LoginPage() {
             </div>
             <div className="mt-6 space-y-3.5">
               {[
-                { icon: Pill, t: "Paracetamol 500mg", d: "Redistribuído • 8d" },
-                { icon: Heart, t: "Amoxicilina 875mg", d: "Reservado • 12d" },
+                { icon: Pill, t: "Paracetamol 500mg", d: "Redistribuído • 78d" },
+                { icon: Heart, t: "Loratadina 10mg", d: "Reservado • 95d" },
                 { icon: Leaf, t: "2,1t CO₂ evitado", d: "este mês" },
               ].map((r) => (
                 <div
@@ -125,20 +135,48 @@ function LoginPage() {
 
           <h1 className="text-3xl font-bold tracking-tight text-deep">Bem-vindo de volta</h1>
           <p className="mt-2 text-sm text-slate">
-            Acesse o centro de controle da sua rede B2B2C.
+            {selectedTab === "empresa"
+              ? "Acesse o centro de controle da sua rede B2B2C."
+              : "Acesse para comprar medicamentos e gerenciar seus pedidos."}
           </p>
+
+          {/* Switcher B2B / B2C */}
+          <div className="mt-6 flex rounded-xl bg-surface p-1 border border-border/40">
+            <button
+              type="button"
+              onClick={() => setSelectedTab("empresa")}
+              className={`flex-1 rounded-lg py-2.5 text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                selectedTab === "empresa"
+                  ? "bg-card text-primary shadow-sm border border-border/10"
+                  : "text-slate hover:text-deep"
+              }`}
+            >
+              Acesso Empresa (B2B)
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedTab("consumidor")}
+              className={`flex-1 rounded-lg py-2.5 text-xs font-bold transition-all flex items-center justify-center gap-2 ${
+                selectedTab === "consumidor"
+                  ? "bg-card text-primary shadow-sm border border-border/10"
+                  : "text-slate hover:text-deep"
+              }`}
+            >
+              Acesso Consumidor (B2C)
+            </button>
+          </div>
 
           <form className="mt-8 space-y-4.5" onSubmit={handleSubmit}>
             <div>
               <Label htmlFor="email" className="text-deep font-semibold">
-                E-mail corporativo
+                {selectedTab === "empresa" ? "E-mail corporativo" : "E-mail pessoal"}
               </Label>
               <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="voce@farmacia.com.br"
+                placeholder={selectedTab === "empresa" ? "voce@farmacia.com.br" : "seuemail@exemplo.com"}
                 disabled={isLoading}
                 required
                 className="mt-1.5 h-12 rounded-xl border-border bg-surface px-4 transition-all focus-visible:ring-primary focus-visible:border-primary"

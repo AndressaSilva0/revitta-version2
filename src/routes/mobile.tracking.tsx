@@ -1,35 +1,57 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2, Package, Truck, ShieldCheck } from "lucide-react";
+import { useUserType } from "@/hooks/useUserType";
 
 export const Route = createFileRoute("/mobile/tracking")({
   component: MobileTracking,
 });
 
-const shipments = [
+const businessShipments = [
   { id: "REV-0892", product: "Paracetamol 500mg", status: "Em trânsito", step: 2 },
-  { id: "REV-0891", product: "Amoxicilina 875mg", status: "Entregue", step: 3 },
-  { id: "REV-0890", product: "Ibuprofeno 600mg", status: "Em retirada", step: 1 },
+  { id: "REV-0891", product: "Loratadina 10mg",    status: "Entregue",   step: 3 },
+  { id: "REV-0890", product: "Ibuprofeno 400mg",  status: "Em retirada", step: 1 },
 ];
 
-const steps = [
+const consumerShipments = [
+  { id: "REV-B2C-9042", product: "Dorflex 36 Comprimidos", status: "Em trânsito (Motoboy)", step: 2 },
+  { id: "REV-B2C-8812", product: "Loratadina Medley 10mg", status: "Entregue", step: 3 },
+];
+
+const businessSteps = [
   { label: "Reserva", icon: CheckCircle2 },
   { label: "Retirada", icon: Package },
   { label: "Trânsito", icon: Truck },
   { label: "Entrega", icon: ShieldCheck },
 ];
 
+const consumerSteps = [
+  { label: "Pedido", icon: CheckCircle2 },
+  { label: "Retirado", icon: Package },
+  { label: "Motoboy", icon: Truck },
+  { label: "Entregue", icon: ShieldCheck },
+];
+
 const statusColors: Record<string, string> = {
   "Em trânsito": "bg-primary/10 text-primary border-primary/20",
+  "Em trânsito (Motoboy)": "bg-primary/10 text-primary border-primary/20",
   "Entregue": "bg-risk-safe/10 text-risk-safe border-risk-safe/25",
   "Em retirada": "bg-risk-warn/15 text-risk-warn border-risk-warn/25",
 };
 
 function MobileTracking() {
+  const { isConsumer } = useUserType();
+  const shipments = isConsumer ? consumerShipments : businessShipments;
+  const steps = isConsumer ? consumerSteps : businessSteps;
+
   return (
     <div className="pb-6">
       <header className="rounded-b-[2.5rem] bg-gradient-to-b from-deep via-deep to-[#093230] px-5 pb-6 pt-12 text-white shadow-lg shadow-deep/10">
-        <h1 className="text-2xl font-extrabold tracking-tight">Rastreamento</h1>
-        <p className="text-xs text-white/70 mt-1">Suas redistribuições ativas em tempo real</p>
+        <h1 className="text-2xl font-extrabold tracking-tight">
+          {isConsumer ? "Minhas Entregas" : "Rastreamento"}
+        </h1>
+        <p className="text-xs text-white/70 mt-1">
+          {isConsumer ? "Acompanhe seus medicamentos em tempo real" : "Suas redistribuições ativas em tempo real"}
+        </p>
       </header>
 
       <div className="space-y-4 p-5">
@@ -59,7 +81,7 @@ function MobileTracking() {
                   <div key={st.label} className="relative z-10 flex flex-col items-center">
                     <span 
                       className={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-350 ${
-                        done 
+                         done 
                           ? "bg-primary text-white shadow-md shadow-primary/20" 
                           : "bg-surface text-slate"
                       } ${active ? "ring-4 ring-primary/20 scale-105" : ""}`}

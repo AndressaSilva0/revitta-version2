@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
 
 export function priorityLevel(days: number): "danger" | "warn" | "safe" {
-  if (days <= 15) return "danger";
-  if (days <= 30) return "warn";
+  if (days <= 90) return "danger";
+  if (days <= 120) return "warn";
   return "safe";
 }
 

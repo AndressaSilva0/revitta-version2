@@ -18,6 +18,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
+import { useUserType } from "@/hooks/useUserType";
 import signupBg from "@/assets/signup-bg.png";
 
 export const Route = createFileRoute("/signup")({
@@ -36,16 +37,16 @@ const consumerTypes = [
   {
     id: "consumidor",
     label: "Consumidor final",
-    desc: "Plano Saúde+ · R$ 14,90/mês",
+    desc: "100% Gratuito — sem mensalidade",
     icon: User,
-    plan: "Saúde+",
+    plan: "Gratuito",
   },
   {
     id: "cuidador",
     label: "Cuidador / família",
-    desc: "Plano Plus · R$ 29,90/mês",
+    desc: "100% Gratuito — sem mensalidade",
     icon: Heart,
-    plan: "Plus",
+    plan: "Gratuito",
   },
 ];
 
@@ -62,7 +63,7 @@ const consumerPerks = [
   "Alertas de medicamentos e validade na sua região",
   "Descontos em lotes das farmácias parceiras",
   "Lembretes de tratamento e histórico pessoal",
-  "Planos Saúde+ e Plus — lançamento no Ano 1",
+  "Acesso 100% gratuito — sem mensalidades",
 ];
 
 // Helper functions for masking
@@ -102,6 +103,7 @@ const formatPhone = (value: string) => {
 
 function SignupPage() {
   const nav = useNavigate();
+  const { setUserType } = useUserType();
   const [step, setStep] = useState<1 | 2>(1);
   const [type, setType] = useState<string | null>(null);
 
@@ -175,11 +177,13 @@ function SignupPage() {
     setTimeout(() => {
       setIsLoading(false);
       if (isConsumer) {
+        setUserType("consumer");
         toast.success(
-          `Você entrou na lista de espera do plano ${consumerPlan}! Avisaremos quando o app B2C abrir.`,
+          "Você entrou na lista de espera gratuita! Avisaremos quando o app B2C abrir.",
         );
         nav({ to: "/mobile" });
       } else {
+        setUserType("business");
         toast.success("Conta criada com sucesso! Bem-vindo à Revitta.");
         nav({ to: "/dashboard" });
       }
@@ -259,8 +263,8 @@ function SignupPage() {
                 Como você vai usar a Revitta?
               </h1>
               <p className="mt-2 text-slate">
-                Parceiros B2B entram na rede de redistribuição. Consumidores finais acessam os
-                planos Saúde+ e Plus.
+                Parceiros B2B entram na rede de redistribuição. Consumidores finais têm acesso
+                gratuito a medicamentos na plataforma.
               </p>
 
               <p className="mt-8 text-xs font-bold uppercase tracking-widest text-primary">
@@ -281,8 +285,8 @@ function SignupPage() {
                 ))}
               </div>
               <p className="mt-4 rounded-xl border border-mint/30 bg-mint/10 px-4 py-3 text-xs text-slate leading-relaxed">
-                Planos B2C entram em operação no <strong className="text-deep">Ano 1</strong>. Ao
-                cadastrar, você garante lugar na lista de espera com prioridade de acesso.
+                O acesso para consumidores é <strong className="text-deep">100% gratuito</strong>. Ao se cadastrar,
+                você garante lugar na lista de espera com prioridade assim que o app for lançado.
               </p>
               <Button
                 disabled={!type}
@@ -299,12 +303,12 @@ function SignupPage() {
               <h1 className="text-3xl font-bold tracking-tight text-deep md:text-4xl">Quase lá!</h1>
               <p className="mt-2 text-slate">
                 {isConsumer
-                  ? `Cadastro para o plano ${consumerPlan} — lista de espera do app consumidor.`
+                  ? "Cadastro gratuito — lista de espera do app consumidor."
                   : "Crie sua conta para ativar a rede B2B2C de redistribuição (plano Explorar)."}
               </p>
               {isConsumer && (
                 <span className="mt-3 inline-flex rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                  Plano {consumerPlan} · lançamento Ano 1
+                  Consumidor Final · 100% Gratuito
                 </span>
               )}
 
@@ -387,7 +391,7 @@ function SignupPage() {
                       Criando conta...
                     </>
                   ) : isConsumer ? (
-                    `Entrar na lista de espera · ${consumerPlan}`
+                    "Entrar na lista de espera gratuita"
                   ) : (
                     "Criar conta gratuita"
                   )}

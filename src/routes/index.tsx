@@ -25,6 +25,8 @@ import {
   Users,
   LineChart,
   Zap,
+  ShieldAlert,
+  AlertTriangle,
 } from "lucide-react";
 import heroDoctor from "@/assets/hero-doctor.png";
 import aboutPharmacist from "@/assets/about-pharmacist.png";
@@ -193,8 +195,8 @@ function Landing() {
             </h1>
             <p className="mt-6 max-w-xl text-lg text-slate leading-relaxed">
               Rede B2B2C de redistribuição farmacêutica: parceiros circulam estoque com segurança e
-              consumidores acessam benefícios e medicamentos com preço justo. Comece no plano
-              gratuito e evolua conforme o seu perfil.
+              consumidores acessam medicamentos com preço justo. Comece no plano gratuito para empresas ou
+              cadastre-se gratuitamente como consumidor.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link to="/signup">
@@ -275,9 +277,9 @@ function Landing() {
                 </div>
 
                 <div className="mt-4 space-y-2">
-                  <ProductRow name="Paracetamol 500mg" days={8} />
-                  <ProductRow name="Amoxicilina 875mg" days={12} />
-                  <ProductRow name="Ibuprofeno 600mg" days={28} />
+                  <ProductRow name="Paracetamol 500mg" days={75} />
+                  <ProductRow name="Loratadina 10mg" days={92} />
+                  <ProductRow name="Ibuprofeno 400mg" days={118} />
                 </div>
               </div>
             </div>
@@ -343,34 +345,34 @@ function Landing() {
               originalPrice: "R$ 28,90",
               revittaPrice: "R$ 11,50",
               discount: "60% OFF",
-              expiry: "18/06/2026",
-              daysLeft: 27,
+              expiry: "12/08/2026",
+              daysLeft: 80,
               location: "São Paulo - SP",
             },
             {
               id: 2,
-              name: "Amoxicilina 500mg (G)",
-              category: "Antibióticos",
+              name: "Ibuprofeno 400mg",
+              category: "Analgésicos",
               img: productAntibiotics,
               quantity: "150 caixas",
               originalPrice: "R$ 42,00",
               revittaPrice: "R$ 14,70",
               discount: "65% OFF",
-              expiry: "02/06/2026",
-              daysLeft: 11,
+              expiry: "28/07/2026",
+              daysLeft: 65,
               location: "Rio de Janeiro - RJ",
             },
             {
               id: 3,
               name: "Xarope Fitoterápico 120ml",
-              category: "Líquidos / Xaropes",
+              category: "Fitoterápicos",
               img: productSyrup,
               quantity: "580 frascos",
               originalPrice: "R$ 19,80",
               revittaPrice: "R$ 6,90",
               discount: "65% OFF",
-              expiry: "29/06/2026",
-              daysLeft: 38,
+              expiry: "05/09/2026",
+              daysLeft: 104,
               location: "Belo Horizonte - MG",
             },
             {
@@ -382,8 +384,8 @@ function Landing() {
               originalPrice: "R$ 55,00",
               revittaPrice: "R$ 22,00",
               discount: "60% OFF",
-              expiry: "12/06/2026",
-              daysLeft: 21,
+              expiry: "20/10/2026",
+              daysLeft: 149,
               location: "Curitiba - PR",
             },
           ].map((lot) => {
@@ -509,86 +511,84 @@ function Landing() {
               Do exploratório gratuito ao SaaS para grandes redes
             </h2>
             <p className="mt-4 text-slate leading-relaxed">
-              Parceiros B2B entram sem mensalidade fixa. Consumidores e operações avançadas têm
-              planos pagos conforme a maturidade do produto.
+              Consumidores não pagam mensalidade. Empresas contam com o plano gratuito (comissão por venda) ou premium para recursos avançados.
             </p>
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             <PricingPlan
-              highlight
               badge="Disponível agora"
               icon={Zap}
-              name="Explorar"
-              subtitle="Gratuito — conheça como funciona"
+              name="Plano Gratuito (B2B)"
+              subtitle="Cadastre lotes e realize vendas sem custo fixo"
               price="R$ 0"
-              priceDetail="/mês · sem fidelidade"
-              audience="Farmácias, clínicas, distribuidoras e laboratórios"
-              timeline="Disponível agora"
+              priceDetail="/mês"
+              audience="Farmácia parceira"
+              timeline="Desde o dia 1"
               features={[
-                "Cadastro na rede B2B2C e painel demonstrativo",
-                "Simulador de ROI e publicação de lotes de teste",
-                "Comissão apenas em redistribuições concluídas",
+                "Cadastro de lotes e vendas na plataforma",
+                "Comissão de 10% por venda de medicamento",
+                "Sem dashboard, relatórios, alertas ou logística",
               ]}
               ctaLabel="Começar grátis"
               ctaTo="/signup"
             />
             <PricingPlan
-              badge="Ano 1"
-              icon={Users}
-              name="Assinatura B2C — Saúde+"
-              subtitle="Consumidor paga mensalidade por benefícios extras"
-              price="R$ 14,90"
-              priceDetail="/mês"
-              audience="Consumidor"
-              timeline="A partir do Ano 1"
+              highlight
+              badge="Disponível agora"
+              icon={LineChart}
+              name="Plano Premium (B2B)"
+              subtitle="Gestão completa e inteligência de perdas"
+              price="R$ 199–499"
+              priceDetail="/mês + 10% por venda"
+              audience="Farmácia / rede / distribuidora"
+              timeline="Desde o dia 1"
               features={[
-                "Alertas de medicamentos e validade na região",
-                "Descontos em lotes redistribuídos nas farmácias parceiras",
-                "Histórico de tratamentos e lembretes de reposição",
+                "Todos os recursos do plano Gratuito",
+                "Dashboard de perdas e alertas automáticos (90/60/30 dias)",
+                "Previsão por SKU e logística via parceiro certificado",
               ]}
-              ctaLabel="Lista de espera"
+              ctaLabel="Ativar Premium"
               ctaTo="/signup"
             />
             <PricingPlan
               badge="Ano 1"
               icon={Heart}
-              name="Assinatura B2C — Plus"
-              subtitle="Plano família para cuidadores e idosos com polifarmácia"
-              price="R$ 29,90"
-              priceDetail="/mês"
-              audience="Consumidor (cuidadores)"
+              name="Publicidade interna (Add-on)"
+              subtitle="Destaque de lotes e produtos na plataforma"
+              price="A definir"
+              priceDetail="serviço à parte"
+              audience="Farmácia parceira"
               timeline="A partir do Ano 1"
               features={[
-                "Tudo do Saúde+ para até 4 dependentes",
-                "Gestão de polifarmácia e interações",
-                "Suporte prioritário para cuidadores",
+                "Contrate destaque de lotes específicos",
+                "Disponível como serviço extra em qualquer plano",
+                "Mais visibilidade na rede de redistribuição",
+              ]}
+              ctaLabel="Saiba mais"
+              ctaHref="#faq"
+            />
+            <PricingPlan
+              badge="Lançamento"
+              icon={Users}
+              name="Consumidor Final (B2C)"
+              subtitle="Acesso gratuito a medicamentos com desconto"
+              price="Grátis"
+              priceDetail="sem mensalidade"
+              audience="Pacientes e cuidadores"
+              timeline="A partir do Ano 1"
+              features={[
+                "Busca de lotes com descontos na sua região",
+                "Alertas de validade e lembretes de tratamento",
+                "100% gratuito para o usuário final",
               ]}
               ctaLabel="Lista de espera"
               ctaTo="/signup"
             />
-            <PricingPlan
-              badge="Ano 2"
-              icon={LineChart}
-              name="Inteligência de dados (SaaS)"
-              subtitle="Relatórios de perdas e previsão de vencimento por SKU e região"
-              price="R$ 199–499"
-              priceDetail="/mês por cliente"
-              audience="Distribuidoras, redes, labs"
-              timeline="A partir do Ano 2"
-              features={[
-                "Dashboard por SKU, região e canal",
-                "Previsão de vencimento e descarte com IA",
-                "API e exportação para ERP e BI",
-              ]}
-              ctaLabel="Falar com vendas"
-              ctaHref="#faq"
-            />
           </div>
 
           <p className="mt-10 text-center text-xs text-slate max-w-2xl mx-auto">
-            Valores de referência para o roadmap comercial. O plano Explorar não cobra mensalidade;
-            planos B2C e SaaS entram em operação nas fases indicadas.
+            Consumidores são 100% isentos de tarifas. Empresas contam com planos B2B adequados para cada tamanho de operação.
           </p>
         </div>
       </section>
@@ -816,7 +816,7 @@ function Landing() {
             />
             <FAQItem
               question="Qual é o custo para começar a usar a plataforma?"
-              answer="O plano Explorar é gratuito: cadastro, painel demonstrativo e simulador, sem mensalidade fixa — cobramos comissão apenas sobre redistribuições concluídas. Assinaturas B2C (Saúde+ e Plus) e o SaaS de Inteligência de dados entram nas fases Ano 1 e Ano 2, conforme a tabela de planos na página."
+              answer="Para o consumidor final, o acesso é 100% gratuito. Para as empresas, o Plano Gratuito não possui mensalidade (apenas comissão de 10% por venda). O Plano Premium custa entre R$ 199 e R$ 499 por mês + comissão, fornecendo painéis em tempo real e logística homologada."
             />
             <FAQItem
               question="Como funciona a logística de coleta e entrega?"
@@ -1134,6 +1134,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 function CalculatorWidget() {
   const [monthlyLoss, setMonthlyLoss] = useState(15000);
+  const [activeTab, setActiveTab] = useState<"calculadora" | "seguranca">("calculadora");
 
   // Recovery is 62%
   const annualSavings = Math.round(monthlyLoss * 12 * 0.62);
@@ -1142,82 +1143,336 @@ function CalculatorWidget() {
   const co2Avoided = ((monthlyLoss / 100) * 0.05 * 12).toFixed(1);
 
   return (
-    <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-xl lg:p-8 relative">
+    <div className="rounded-3xl border border-border/60 bg-card p-6 shadow-xl lg:p-8 relative transition-all duration-300">
+      {/* Header */}
       <div className="flex items-center gap-3">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-          <Calculator className="h-5 w-5" />
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all">
+          {activeTab === "calculadora" ? (
+            <Calculator className="h-5 w-5" />
+          ) : (
+            <ShieldCheck className="h-5 w-5 text-primary" />
+          )}
         </span>
         <div>
-          <h3 className="text-lg font-extrabold text-deep">Simulador de Economia</h3>
-          <p className="text-xs text-slate">Calcule o retorno sobre descarte evitado</p>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <div className="flex items-center justify-between font-bold text-sm">
-          <span className="text-deep">Lotes a vencer por mês</span>
-          <span className="text-lg font-black text-primary">
-            R$ {monthlyLoss.toLocaleString("pt-BR")}
-          </span>
-        </div>
-        <input
-          type="range"
-          min="2000"
-          max="150000"
-          step="1000"
-          value={monthlyLoss}
-          onChange={(e) => setMonthlyLoss(parseInt(e.target.value))}
-          className="mt-4 h-2 w-full cursor-pointer rounded-lg bg-border accent-primary focus:outline-none"
-        />
-        <div className="mt-2 flex justify-between text-[10px] font-bold text-slate">
-          <span>R$ 2.000</span>
-          <span>R$ 75.000</span>
-          <span>R$ 150.000</span>
-        </div>
-      </div>
-
-      <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
-            Economia Anual Estimada
-          </p>
-          <p className="mt-2 text-2xl font-black text-primary">
-            R$ {annualSavings.toLocaleString("pt-BR")}
-          </p>
-          <p className="mt-1 text-[10px] font-semibold text-slate/85">
-            recuperação estimada de 62%
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
-            Prejuízo Anual sem Revitta
-          </p>
-          <p className="mt-2 text-xl font-extrabold text-risk-danger">
-            R$ {totalAnnualLoss.toLocaleString("pt-BR")}
-          </p>
-          <p className="mt-1 text-[10px] font-semibold text-slate/85">prejuízo de incineração</p>
-        </div>
-      </div>
-
-      <div className="mt-6 grid grid-cols-2 gap-4 border-t border-border/60 pt-4 text-center">
-        <div>
-          <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
-            Unidades Salvas/Ano
-          </p>
-          <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
-            <Package className="h-4 w-4 text-mint" /> {medicinesSaved} un.
-          </p>
-        </div>
-        <div>
-          <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
-            Pegada de Carbono Evitada
-          </p>
-          <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
-            <Leaf className="h-4 w-4 text-primary" /> {co2Avoided}t CO₂
+          <h3 className="text-lg font-extrabold text-deep">
+            {activeTab === "calculadora" ? "Simulador de Economia" : "Segurança & Operação"}
+          </h3>
+          <p className="text-xs text-slate">
+            {activeTab === "calculadora"
+              ? "Calcule o retorno sobre descarte evitado"
+              : "Como viabilizamos a redistribuição na prática"}
           </p>
         </div>
       </div>
+
+      {/* Tab Switcher */}
+      <div className="mt-6 flex rounded-xl bg-surface p-1 border border-border/40">
+        <button
+          onClick={() => setActiveTab("calculadora")}
+          className={`flex-1 rounded-lg py-2 text-xs font-bold transition-all ${
+            activeTab === "calculadora"
+              ? "bg-card text-primary shadow-sm"
+              : "text-slate hover:text-deep"
+          }`}
+        >
+          Simulador Financeiro
+        </button>
+        <button
+          onClick={() => setActiveTab("seguranca")}
+          className={`flex-1 rounded-lg py-2 text-xs font-bold transition-all ${
+            activeTab === "seguranca"
+              ? "bg-card text-primary shadow-sm"
+              : "text-slate hover:text-deep"
+          }`}
+        >
+          Segurança e Conformidade
+        </button>
+      </div>
+
+      {activeTab === "calculadora" ? (
+        <div className="animate-in fade-in duration-300">
+          <div className="mt-8">
+            <div className="flex items-center justify-between font-bold text-sm">
+              <span className="text-deep">Lotes pré-vencidos por mês</span>
+              <span className="text-lg font-black text-primary">
+                R$ {monthlyLoss.toLocaleString("pt-BR")}
+              </span>
+            </div>
+            <input
+              type="range"
+              min="2000"
+              max="150000"
+              step="1000"
+              value={monthlyLoss}
+              onChange={(e) => setMonthlyLoss(parseInt(e.target.value))}
+              className="mt-4 h-2 w-full cursor-pointer rounded-lg bg-border accent-primary focus:outline-none"
+            />
+            <div className="mt-2 flex justify-between text-[10px] font-bold text-slate">
+              <span>R$ 2.000</span>
+              <span>R$ 75.000</span>
+              <span>R$ 150.000</span>
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
+                Economia Anual Estimada
+              </p>
+              <p className="mt-2 text-2xl font-black text-primary">
+                R$ {annualSavings.toLocaleString("pt-BR")}
+              </p>
+              <p className="mt-1 text-[10px] font-semibold text-slate/85">
+                recuperação estimada de 62%
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border/60 bg-surface p-4 text-center">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate">
+                Prejuízo Anual sem Revitta
+              </p>
+              <p className="mt-2 text-xl font-extrabold text-risk-danger">
+                R$ {totalAnnualLoss.toLocaleString("pt-BR")}
+              </p>
+              <p className="mt-1 text-[10px] font-semibold text-slate/85">
+                prejuízo de incineração
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-4 border-t border-border/60 pt-4 text-center">
+            <div>
+              <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
+                Unidades Salvas/Ano
+              </p>
+              <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
+                <Package className="h-4 w-4 text-mint" /> {medicinesSaved} un.
+              </p>
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-slate uppercase tracking-wider">
+                Pegada de Carbono Evitada
+              </p>
+              <p className="mt-1.5 font-extrabold text-deep flex items-center justify-center gap-1.5 text-sm">
+                <Leaf className="h-4 w-4 text-primary" /> {co2Avoided}t CO₂
+              </p>
+            </div>
+          </div>
+
+          {/* Detailed Platform Safety Explanation */}
+          <div className="mt-6 border-t border-border/60 pt-6 space-y-4">
+            <div className="rounded-2xl border border-risk-danger/30 bg-risk-danger/5 p-4 text-left shadow-sm">
+              <div className="flex items-start gap-3">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-risk-danger/10 text-risk-danger shrink-0 mt-0.5">
+                  <ShieldAlert className="h-4 w-4" />
+                </span>
+                <div>
+                  <p className="text-xs font-bold text-risk-danger leading-normal uppercase tracking-wide flex items-center gap-1">
+                    ⚠️ AVISO DE SEGURANÇA E REGULAMENTAÇÃO ANVISA
+                  </p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-slate font-medium">
+                    <strong className="text-deep">Bloqueio Absoluto de Vencidos:</strong> Medicamentos vencidos são <span className="text-risk-danger font-bold">100% bloqueados</span>. A plataforma proíbe a circulação de lotes com data expirada, direcionando-os automaticamente para descarte ecológico certificado.
+                  </p>
+                  <p className="mt-1 text-[11px] leading-relaxed text-slate font-medium">
+                    <strong className="text-deep">Redistribuição Apenas de Pré-Vencidos:</strong> Operamos apenas com lotes <strong className="text-primary font-bold">pré-vencidos</strong> (com 60 a 180 dias de validade restante), garantindo o consumo seguro antes do vencimento legal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-xs font-bold text-deep">Passo a passo do fluxo seguro de redistribuição:</p>
+              
+              <div className="grid gap-2.5 sm:grid-cols-2">
+                <div className="rounded-xl border border-border bg-surface p-3 transition-colors hover:bg-border/10">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                      1
+                    </span>
+                    <h5 className="text-[11px] font-bold text-deep">Identificação via Código</h5>
+                  </div>
+                  <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                    O vendedor insere o código de barras ou XML da nota fiscal do lote para validação no sistema.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-surface p-3 transition-colors hover:bg-border/10">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                      2
+                    </span>
+                    <h5 className="text-[11px] font-bold text-deep">Filtro de Validade & OTC</h5>
+                  </div>
+                  <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                    A plataforma exige validade entre 60 e 180 dias e apenas permite medicamentos isentos de prescrição (OTC).
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-surface p-3 transition-colors hover:bg-border/10">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                      3
+                    </span>
+                    <h5 className="text-[11px] font-bold text-deep">Match Exclusivo B2B</h5>
+                  </div>
+                  <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                    O lote pré-vencido é exibido apenas para farmácias e clínicas parceiras homologadas com CRF ativo.
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-border bg-surface p-3 transition-colors hover:bg-border/10">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                      4
+                    </span>
+                    <h5 className="text-[11px] font-bold text-deep">Logística Térmica RDC 304</h5>
+                  </div>
+                  <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                    A coleta e transporte são realizados por operadores licenciados com monitoramento ativo de temperatura.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end">
+              <button
+                type="button"
+                onClick={() => setActiveTab("seguranca")}
+                className="text-[11px] font-bold text-primary hover:underline flex items-center gap-1"
+              >
+                Ver detalhes e certificações de segurança <ArrowRight className="h-3 w-3" />
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-8 space-y-6 animate-in fade-in duration-300">
+          <p className="text-xs text-slate leading-relaxed">
+            Para garantir que a redistribuição de medicamentos próximos do vencimento seja segura e em total conformidade legal, a Revitta utiliza um protocolo rígido de 4 pilares:
+          </p>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-border/50 bg-surface p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Users className="h-4 w-4" />
+                </span>
+                <h4 className="text-xs font-bold text-deep">1. Homologação Estrita</h4>
+              </div>
+              <p className="mt-2 text-[10px] leading-relaxed text-slate">
+                Apenas estabelecimentos licenciados (CRF ativo, licença sanitária) participam da rede. Consumidores acessam somente farmácias receptoras autorizadas.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border/50 bg-surface p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <CheckCircle2 className="h-4 w-4" />
+                </span>
+                <h4 className="text-xs font-bold text-deep">2. Triagem de Lotes</h4>
+              </div>
+              <p className="mt-2 text-[10px] leading-relaxed text-slate">
+                Cruzamento automático de código de barras e SNGPC. Lotes vencidos, sem registro ANVISA ou de controle especial não autorizado são bloqueados imediatamente.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border/50 bg-surface p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <Truck className="h-4 w-4" />
+                </span>
+                <h4 className="text-xs font-bold text-deep">3. Cadeia Logística Fria</h4>
+              </div>
+              <p className="mt-2 text-[10px] leading-relaxed text-slate">
+                Coleta e transporte feitos por operadoras credenciadas com monitoramento térmico contínuo. Garantia de conservação e conformidade com a RDC 304.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-border/50 bg-surface p-4 transition-all duration-300 hover:border-primary/30 hover:shadow-md">
+              <div className="flex items-center gap-2.5">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <BarChart3 className="h-4 w-4" />
+                </span>
+                <h4 className="text-xs font-bold text-deep">4. Integração Fiscal & ERP</h4>
+              </div>
+              <p className="mt-2 text-[10px] leading-relaxed text-slate">
+                Baixa automatizada no estoque interno e emissão das guias fiscais integradas. Sem retrabalho burocrático ou risco de passivos contábeis.
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t border-border/60 my-4" />
+
+          <div className="space-y-4">
+            <h4 className="text-xs font-extrabold text-deep uppercase tracking-wider">
+              Como funciona o fluxo seguro na plataforma?
+            </h4>
+            
+            <div className="relative pl-6 border-l-2 border-dashed border-border/80 ml-3 space-y-5">
+              <div className="relative">
+                <div className="absolute -left-[31px] top-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white shadow-sm ring-4 ring-card">
+                  1
+                </div>
+                <h5 className="text-[11px] font-bold text-deep flex items-center gap-1.5">
+                  Inserção e Validação do Lote
+                </h5>
+                <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                  A farmácia vendedora insere o código de barras ou XML. A Revitta valida a data de validade, fabricante e lote diretamente na base de dados nacional, impedindo qualquer lote fora da regra sanitária.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-[31px] top-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white shadow-sm ring-4 ring-card">
+                  2
+                </div>
+                <h5 className="text-[11px] font-bold text-deep flex items-center gap-1.5">
+                  Filtro e Match Regional Autorizado
+                </h5>
+                <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                  O lote é oferecido apenas a compradores (outras farmácias ou clínicas) cadastrados e homologados com CRF e licenças ativas, impedindo a comercialização direta a consumidores leigos.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-[31px] top-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white shadow-sm ring-4 ring-card">
+                  3
+                </div>
+                <h5 className="text-[11px] font-bold text-deep flex items-center gap-1.5">
+                  Coleta e Transporte Rastreável (RDC 304)
+                </h5>
+                <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                  A coleta é efetuada por operadora logística certificada. A temperatura e a umidade são monitoradas por sensores ativos durante todo o trajeto, preservando a integridade física do lote.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-[31px] top-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-white shadow-sm ring-4 ring-card">
+                  4
+                </div>
+                <h5 className="text-[11px] font-bold text-deep flex items-center gap-1.5">
+                  Integração no ERP & SNGPC
+                </h5>
+                <p className="mt-1 text-[10px] leading-relaxed text-slate">
+                  Ao ser entregue, o receptor valida a conformidade física. O sistema atualiza o ERP e gera a baixa ou transferência no SNGPC e emissão de notas fiscais de forma 100% automatizada.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-primary/20 bg-primary/5 p-4 text-center">
+            <p className="text-[11px] font-bold text-deep">
+              Quer ver na prática como sua operação se conecta com segurança?
+            </p>
+            <button
+              type="button"
+              onClick={() => setActiveTab("calculadora")}
+              className="mt-2 rounded-full bg-primary text-white hover:bg-primary/95 text-xs px-4 py-1.5 font-bold shadow-md shadow-primary/10 transition-all hover:scale-105"
+            >
+              Voltar para o Simulador
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

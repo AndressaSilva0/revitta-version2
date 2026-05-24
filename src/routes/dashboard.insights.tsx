@@ -11,7 +11,7 @@ export const Route = createFileRoute("/dashboard/insights")({
 
 const categories = [
   { name: "Analgésicos", value: 42 },
-  { name: "Antibióticos", value: 28 },
+  { name: "Antiácidos", value: 28 },
   { name: "Anti-inflam.", value: 18 },
   { name: "Vitaminas", value: 12 },
 ];
@@ -28,10 +28,10 @@ const forecast = [
 
 const top = [
   { name: "Paracetamol 500mg", qty: 1240 },
-  { name: "Ibuprofeno 600mg", qty: 980 },
-  { name: "Amoxicilina 875mg", qty: 720 },
-  { name: "Dipirona 1g", qty: 640 },
-  { name: "Omeprazol 20mg", qty: 510 },
+  { name: "Ibuprofeno 400mg", qty: 980 },
+  { name: "Loratadina 10mg", qty: 720 },
+  { name: "Dipirona 500mg", qty: 640 },
+  { name: "Simeticona 75mg", qty: 510 },
 ];
 
 function InsightsPage() {

@@ -9,12 +9,12 @@ export const Route = createFileRoute("/mobile/products")({
 });
 
 const items = [
-  { name: "Omeprazol 20mg", days: 7, qty: 95, lot: "L2024-9001" },
-  { name: "Paracetamol 500mg", days: 12, qty: 450, lot: "L2024-4521" },
-  { name: "Ibuprofeno 600mg", days: 18, qty: 520, lot: "L2024-5134" },
-  { name: "Amoxicilina 875mg", days: 28, qty: 280, lot: "L2024-3892" },
-  { name: "Dipirona 1g", days: 62, qty: 340, lot: "L2024-4789" },
-  { name: "Vitamina C 1g", days: 90, qty: 180, lot: "L2024-7711" },
+  { name: "Paracetamol 500mg", days: 65,  qty: 450, lot: "L2024-4521" },
+  { name: "Simeticona 75mg",    days: 72,  qty: 95,  lot: "L2024-9001" },
+  { name: "Loratadina 10mg",    days: 85,  qty: 280, lot: "L2024-3892" },
+  { name: "Ibuprofeno 400mg",  days: 98,  qty: 520, lot: "L2024-5134" },
+  { name: "Dipirona 500mg",     days: 110, qty: 340, lot: "L2024-4789" },
+  { name: "Vitamina C 1g",      days: 140, qty: 180, lot: "L2024-7711" },
 ];
 
 const filters = ["Todos", "Crítico", "Atenção", "Seguro"];
@@ -26,9 +26,9 @@ function MobileProducts() {
   const data = items.filter((i) => {
     const matchesFilter =
       f === "Todos" ||
-      (f === "Crítico" && i.days <= 15) ||
-      (f === "Atenção" && i.days > 15 && i.days <= 30) ||
-      (f === "Seguro" && i.days > 30);
+      (f === "Crítico" && i.days <= 90) ||
+      (f === "Atenção" && i.days > 90 && i.days <= 120) ||
+      (f === "Seguro" && i.days > 120);
     const matchesSearch =
       i.name.toLowerCase().includes(query.toLowerCase()) ||
       i.lot.toLowerCase().includes(query.toLowerCase());
